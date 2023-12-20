@@ -1,0 +1,8 @@
+{
+  "lootball_open": {
+    "subtitle": "subtitles.lootballs.lootball_open",
+    "sounds": [
+      "lootballs:lootball_open"
+    ]
+  }
+}

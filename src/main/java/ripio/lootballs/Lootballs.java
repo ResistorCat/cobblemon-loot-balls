@@ -13,6 +13,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.StatFormatter;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -61,6 +62,10 @@ public class Lootballs implements ModInitializer {
 
 	// Player statistic
 	public static final Identifier OPEN_LOOT_BALL = new Identifier(MOD_ID, "open_loot_ball");
+
+	// Sounds
+	public static final Identifier LOOT_BALL_OPEN_SOUND_ID = new Identifier("lootballs:lootball_open");
+	public static SoundEvent LOOT_BALL_OPEN_SOUND_EVENT = SoundEvent.of(LOOT_BALL_OPEN_SOUND_ID);
 
 	@Override
 	public void onInitialize() {
@@ -125,5 +130,11 @@ public class Lootballs implements ModInitializer {
 				OPEN_LOOT_BALL
 		);
 		Stats.CUSTOM.getOrCreateStat(OPEN_LOOT_BALL, StatFormatter.DEFAULT);
+		LOGGER.info("Registering Loot Ball sounds...");
+		Registry.register(
+				Registries.SOUND_EVENT,
+				Lootballs.LOOT_BALL_OPEN_SOUND_ID,
+				LOOT_BALL_OPEN_SOUND_EVENT
+		);
 	}
 }

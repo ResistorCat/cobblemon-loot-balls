@@ -141,25 +141,25 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
             ItemStack handItem = player.getStackInHand(hand).copy();
 
             if ( player.getStackInHand(hand).isEmpty() & player.isCreative() ) {
-                player.playSound(SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.PLAYERS, 0.25F, 1.0F);
+                player.playSound(SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.PLAYERS, 0.4F, 1.0F);
                 world.setBlockState(pos, state.with(HIDDEN, !state.get(HIDDEN)));
                 player.sendMessage(Text.of("Lootball visibility toggled!"), true);
             } else if (player.isCreative() & handItem.isOf(Items.HONEYCOMB) & state.get(HIDDEN)) {
                 // Toggle waxed
                 world.setBlockState(pos, state.with(WAXED, !state.get(WAXED)));
                 SoundEvent waxSnd = state.get(WAXED) ? SoundEvents.ITEM_HONEYCOMB_WAX_ON : SoundEvents.ITEM_AXE_WAX_OFF;
-                player.playSound(SoundEvents.ITEM_HONEYCOMB_WAX_ON, SoundCategory.PLAYERS, 0.25F,1.0F);
+                player.playSound(SoundEvents.ITEM_HONEYCOMB_WAX_ON, SoundCategory.PLAYERS, 0.4F,1.0F);
                 String waxMsg = "Lootball sparks set to: " + (state.get(WAXED) ? "ON" : "OFF");
                 player.sendMessage(Text.of(waxMsg), true);
             } else if (player.isCreative()) {
                 // Set loot to full stack in hand
-                player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.25F, 1.0F);
+                player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.4F, 1.0F);
                 String lootMsg = "Lootball loot was set to: " + handItem.toString();
                 player.sendMessage(Text.of(lootMsg), true);
                 blockEntity.setStack(0, handItem);
             } else if (!player.isCreative() & !player.isSpectator() & !blockEntity.getStack(0).isEmpty()) {
                 // Open loot
-                player.playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, SoundCategory.PLAYERS, 0.25F, 1.0F);
+                player.playSound(Lootballs.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.PLAYERS, 0.4F, 1.0F);
                 String lootMsg = "You found " + blockEntity.getStack(0).toString();
                 player.sendMessage(Text.of(lootMsg),true);
                 player.getInventory().offerOrDrop(blockEntity.getStack(0));
