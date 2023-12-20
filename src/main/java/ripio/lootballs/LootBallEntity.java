@@ -3,13 +3,14 @@ package ripio.lootballs;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.util.math.Direction;
 
-public class LootBallEntity extends BlockEntity implements ImplementedInventory {
+public class LootBallEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1,ItemStack.EMPTY);
     public LootBallEntity(BlockPos pos, BlockState state) {
         super(Lootballs.LOOT_BALL_ENTITY, pos, state);
@@ -32,5 +33,25 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory 
         super.writeNbt(nbt);
     }
 
+    @Override
+    public int[] getAvailableSlots(Direction side) {
+        // Just return an array of all slots
+        int[] result = new int[getItems().size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = i;
+        }
+
+        return result;
+    }
+
+    @Override
+    public boolean canInsert(int slot, ItemStack stack, Direction direction) {
+        return false;
+    }
+
+    @Override
+    public boolean canExtract(int slot, ItemStack stack, Direction direction) {
+        return false;
+    }
 
 }

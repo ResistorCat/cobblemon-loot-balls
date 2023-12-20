@@ -126,4 +126,13 @@ public interface ImplementedInventory extends Inventory {
     default boolean canPlayerUse(PlayerEntity player) {
         return true;
     }
+
+    @Override
+    default boolean canTransferTo(
+            Inventory hopperInventory,
+            int slot,
+            ItemStack stack
+    ) {
+        return false;
+    }
 }
