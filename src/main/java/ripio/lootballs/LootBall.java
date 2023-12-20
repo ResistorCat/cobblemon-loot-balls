@@ -2,7 +2,6 @@ package ripio.lootballs;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -11,7 +10,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -19,7 +17,6 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -146,15 +143,16 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                 player.sendMessage(Text.of("Lootball visibility toggled!"), true);
             } else if (player.isCreative() & handItem.isOf(Items.HONEYCOMB) & state.get(HIDDEN)) {
                 // Toggle waxed
-                world.setBlockState(pos, state.with(WAXED, !state.get(WAXED)));
-                SoundEvent waxSnd = state.get(WAXED) ? SoundEvents.ITEM_HONEYCOMB_WAX_ON : SoundEvents.ITEM_AXE_WAX_OFF;
-                player.playSound(SoundEvents.ITEM_HONEYCOMB_WAX_ON, SoundCategory.PLAYERS, 0.4F,1.0F);
-                String waxMsg = "Lootball sparks set to: " + (state.get(WAXED) ? "ON" : "OFF");
+                Boolean isWaxed = !state.get(WAXED);
+                world.setBlockState(pos, state.with(WAXED, isWaxed));
+                SoundEvent waxSnd = isWaxed ? SoundEvents.ITEM_HONEYCOMB_WAX_ON : SoundEvents.ITEM_AXE_WAX_OFF;
+                player.playSound(waxSnd, SoundCategory.PLAYERS, 0.4F,1.0F);
+                String waxMsg = "Lootball sparks set to: " + (isWaxed ? "OFF" : "ON");
                 player.sendMessage(Text.of(waxMsg), true);
             } else if (player.isCreative()) {
                 // Set loot to full stack in hand
                 player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.4F, 1.0F);
-                String lootMsg = "Lootball loot was set to: " + handItem.toString();
+                String lootMsg = "Lootball loot was set to: " + handItem;
                 player.sendMessage(Text.of(lootMsg), true);
                 blockEntity.setStack(0, handItem);
             } else if (!player.isCreative() & !player.isSpectator() & !blockEntity.getStack(0).isEmpty()) {
