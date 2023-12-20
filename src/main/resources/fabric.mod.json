@@ -1,0 +1,42 @@
+{
+	"schemaVersion": 1,
+	"id": "lootballs",
+	"version": "${version}",
+	"name": "lootballs",
+	"description": "This cobblemon sidemod adds the famous pokéball with loot from the original games to cobblemon for mapmaking. (Cobblemon mod is required)",
+	"authors": [
+		"Ripio"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/lootballs/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"ripio.lootballs.Lootballs"
+		],
+		"client": [
+			"ripio.lootballs.LootballsClient"
+		]
+	},
+	"mixins": [
+		"lootballs.mixins.json",
+		{
+			"config": "lootballs.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.1",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*",
+		"cobblemon": "1.4.0"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
