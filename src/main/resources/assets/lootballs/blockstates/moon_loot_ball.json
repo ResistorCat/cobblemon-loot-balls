@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "lootballs:block/moon_loot_ball"},
+    "facing=east": { "model": "lootballs:block/moon_loot_ball", "y": 90},
+    "facing=south": { "model": "lootballs:block/moon_loot_ball", "y": 180},
+    "facing=west": { "model": "lootballs:block/moon_loot_ball", "y": 270}
+  }
+}

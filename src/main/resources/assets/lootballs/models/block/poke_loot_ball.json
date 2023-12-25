@@ -1,6 +1,7 @@
 {
   "parent": "lootballs:block/loot_ball_base",
   "textures": {
-    "layer0": "cobblemon:item/poke_balls/models/poke_ball"
+    "layer0": "cobblemon:item/poke_balls/models/poke_ball",
+    "particle": "cobblemon:item/poke_balls/models/poke_ball"
   }
 }
