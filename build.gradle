@@ -46,7 +46,7 @@ dependencies {
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
-	modImplementation("com.cobblemon:fabric:1.4.0+1.20.1")
+	modImplementation("com.cobblemon:fabric:1.4.1+1.20.1")
 }
 
 processResources {
@@ -96,12 +96,13 @@ publishing {
 
 modrinth {
 	token = System.getenv("MODRINTH_TOKEN") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
-	projectId = "lootballs" // This can be the project ID or the slug. Either will work!
-	versionNumber = "0.1.0" // You don't need to set this manually. Will fail if Modrinth has this version already
+	projectId = "kcudYghD" // This can be the project ID or the slug. Either will work!
+	versionNumber = "0.2.0" // You don't need to set this manually. Will fail if Modrinth has this version already
 	versionType = "alpha" // This is the default "release" -- can also be `beta` or `alpha`
 	uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
 	gameVersions = ["1.20.1"] // Must be an array, even with only one version
 	loaders = ["fabric"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
+	changelog = rootProject.file("changelog.md").text
 	dependencies { // A special DSL for creating dependencies
 		// scope.type
 		// The scope can be `required`, `optional`, `incompatible`, or `embedded`
