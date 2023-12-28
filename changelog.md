@@ -1,1 +1,2 @@
+- Added ```generateLootBalls```, ```doLootBallSpawning``` and ```doLootBallFishing``` game rules.
 - 

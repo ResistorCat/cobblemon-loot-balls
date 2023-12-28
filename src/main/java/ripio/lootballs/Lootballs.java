@@ -2,6 +2,8 @@ package ripio.lootballs;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
+import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -18,6 +20,7 @@ import net.minecraft.stat.StatFormatter;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.GameRules;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -143,6 +146,17 @@ public class Lootballs implements ModInitializer {
 	public static final Identifier LOOT_BALL_OPEN_SOUND_ID = new Identifier("lootballs:lootball_open");
 	public static SoundEvent LOOT_BALL_OPEN_SOUND_EVENT = SoundEvent.of(LOOT_BALL_OPEN_SOUND_ID);
 
+	// Gamerules
+	public static final GameRules.Key<GameRules.BooleanRule> GENERATE_LOOT_BALLS = GameRuleRegistry.register(
+			"generateLootBalls", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true)
+	);
+	public static final GameRules.Key<GameRules.BooleanRule> DO_LOOT_BALL_SPAWNING = GameRuleRegistry.register(
+			"doLootBallSpawning", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(false)
+	);
+	public static final GameRules.Key<GameRules.BooleanRule> DO_LOOT_BALL_FISHING = GameRuleRegistry.register(
+			"doLootBallFishing", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true)
+	);
+
 	@Override
 	public void onInitialize() {
 		LOGGER.info("Registering Loot Balls...");
@@ -210,31 +224,16 @@ public class Lootballs implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "ultra_loot_ball"), new BlockItem(ULTRA_LOOT_BALL, new FabricItemSettings()));
 		Registry.register(Registries.BLOCK, new Identifier(MOD_ID, "verdant_loot_ball"), VERDANT_LOOT_BALL);
 		Registry.register(Registries.ITEM, new Identifier(MOD_ID, "verdant_loot_ball"), new BlockItem(VERDANT_LOOT_BALL, new FabricItemSettings()));
+		// Register block entities
+		Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID, "loot_ball_entity"), LOOT_BALL_ENTITY);
 
-		LOGGER.info("Registering Loot Ball item group...");
-		Registry.register(
-				Registries.ITEM_GROUP,
-				new Identifier(MOD_ID, "lootballs_group"),
-				LOOTBALLS_GROUP
-		);
-		LOGGER.info("Registering Loot Ball block entity...");
-		Registry.register(
-				Registries.BLOCK_ENTITY_TYPE,
-				new Identifier(MOD_ID, "loot_ball_entity"),
-				LOOT_BALL_ENTITY
-		);
-		LOGGER.info("Registering Loot Ball player stat...");
-		Registry.register(
-				Registries.CUSTOM_STAT,
-				"open_loot_ball",
-				OPEN_LOOT_BALL
-		);
+		LOGGER.info("Registering Loot Balls misc. features...");
+		// Register item groups
+		Registry.register(Registries.ITEM_GROUP, new Identifier(MOD_ID, "lootballs_group"), LOOTBALLS_GROUP);
+		// Register statistics
+		Registry.register(Registries.CUSTOM_STAT, "open_loot_ball", OPEN_LOOT_BALL);
 		Stats.CUSTOM.getOrCreateStat(OPEN_LOOT_BALL, StatFormatter.DEFAULT);
-		LOGGER.info("Registering Loot Ball sounds...");
-		Registry.register(
-				Registries.SOUND_EVENT,
-				Lootballs.LOOT_BALL_OPEN_SOUND_ID,
-				LOOT_BALL_OPEN_SOUND_EVENT
-		);
+		// Register sound events
+		Registry.register(Registries.SOUND_EVENT, Lootballs.LOOT_BALL_OPEN_SOUND_ID, LOOT_BALL_OPEN_SOUND_EVENT);
 	}
 }
