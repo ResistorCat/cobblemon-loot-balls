@@ -99,6 +99,9 @@ public class Lootballs implements ModInitializer {
 			VERDANT_LOOT_BALL
 	).build();
 
+	// Loot Tables
+	public static final Identifier POKE_LOOT_TABLE = new Identifier(MOD_ID, "balls/poke");
+
 	// Group
 	private static final ItemGroup LOOTBALLS_GROUP = FabricItemGroup.builder()
 			.icon(() -> new ItemStack(POKE_LOOT_BALL))

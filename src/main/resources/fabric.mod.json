@@ -22,7 +22,7 @@
 			"ripio.lootballs.LootballsClient"
 		],
 		"fabric-datagen": [
-			"ripio.lootballs.LootBallsDataGenerator"
+			"ripio.lootballs.utils.LootBallsDataGenerator"
 		]
 	},
 	"mixins": [
