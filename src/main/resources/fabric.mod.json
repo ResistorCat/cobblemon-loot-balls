@@ -3,7 +3,7 @@
 	"id": "lootballs",
 	"version": "${version}",
 	"name": "lootballs",
-	"description": "A cobblemon side-mod that adds the famous pokéball with loot from the original games to cobblemon for mapmaking. (Cobblemon mod is required)",
+	"description": "A cobblemon side-mod that adds pokéballs with loot from the original games to cobblemon for mapmaking. (Cobblemon mod is required)",
 	"authors": [
 		"Ripio"
 	],
@@ -22,7 +22,7 @@
 			"ripio.lootballs.LootballsClient"
 		],
 		"fabric-datagen": [
-			"ripio.lootballs.utils.LootBallsDataGenerator"
+			"ripio.lootballs.LootBallsDataGenerator"
 		]
 	},
 	"mixins": [
