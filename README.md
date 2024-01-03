@@ -16,6 +16,7 @@ This cobblemon sidemod adds the famous pokéballs with loot from the original ga
 
 ## Planned features
 - Natural generation of loot balls.
+- Add animations for opening loot balls.
 
 ## Bugs and feedback
 Please report any bugs or feedback on the github [issues](https://github.com/ResistorCat/cobblemon-loot-balls/issues) page.

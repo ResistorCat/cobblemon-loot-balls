@@ -1,0 +1,7 @@
+{
+  "type": "lootballs:loot_ball_feature",
+  "config": {
+    "blockID": "lootballs:safari_loot_ball",
+    "lootTableID": "lootballs:safari_loot_table"
+  }
+}

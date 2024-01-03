@@ -1,0 +1,7 @@
+{
+  "type": "lootballs:loot_ball_feature",
+  "config": {
+    "blockID": "lootballs:roseate_loot_ball",
+    "lootTableID": "lootballs:roseate_loot_table"
+  }
+}

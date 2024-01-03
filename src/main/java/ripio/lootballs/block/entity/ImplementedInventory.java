@@ -1,15 +1,16 @@
-package ripio.lootballs;
+package ripio.lootballs.block.entity;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A simple {@code Inventory} implementation with only default methods + an item list getter.
- *
  * Originally by Juuz
+ * Modified by Ripio
  */
 public interface ImplementedInventory extends Inventory {
 
@@ -45,6 +46,7 @@ public interface ImplementedInventory extends Inventory {
      */
     @Override
     default boolean isEmpty() {
+        this.checkLootInteraction(null);
         for (int i = 0; i < size(); i++) {
             ItemStack stack = getStack(i);
             if (!stack.isEmpty()) {
@@ -59,6 +61,7 @@ public interface ImplementedInventory extends Inventory {
      */
     @Override
     default ItemStack getStack(int slot) {
+        this.checkLootInteraction(null);
         return getItems().get(slot);
     }
     
@@ -70,6 +73,7 @@ public interface ImplementedInventory extends Inventory {
      */
     @Override
     default ItemStack removeStack(int slot, int count) {
+        this.checkLootInteraction(null);
         ItemStack result = Inventories.splitStack(getItems(), slot, count);
         if (!result.isEmpty()) {
             markDirty();
@@ -83,6 +87,7 @@ public interface ImplementedInventory extends Inventory {
      */
     @Override
     default ItemStack removeStack(int slot) {
+        this.checkLootInteraction(null);
         return Inventories.removeStack(getItems(), slot);
     }
     
@@ -95,6 +100,7 @@ public interface ImplementedInventory extends Inventory {
      */
     @Override
     default void setStack(int slot, ItemStack stack) {
+        this.checkLootInteraction(null);
         getItems().set(slot, stack);
         if (stack.getCount() > stack.getMaxCount()) {
             stack.setCount(stack.getMaxCount());
@@ -134,5 +140,9 @@ public interface ImplementedInventory extends Inventory {
             ItemStack stack
     ) {
         return false;
+    }
+
+    default void checkLootInteraction(@Nullable PlayerEntity player) {
+        // Override
     }
 }

@@ -1,4 +1,4 @@
-package ripio.lootballs;
+package ripio.lootballs.block.custom;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -28,12 +28,16 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import ripio.lootballs.block.entity.LootBallEntity;
+import ripio.lootballs.sound.LootBallsSoundEvents;
+import ripio.lootballs.stat.LootBallsStats;
 
 public class LootBall extends HorizontalFacingBlock implements Waterloggable, BlockEntityProvider {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty HIDDEN = BooleanProperty.of("hidden");
 
     public static final BooleanProperty WAXED = BooleanProperty.of("waxed");
+
     public LootBall(Settings settings) {
         super(settings.nonOpaque().noBlockBreakParticles());
         setDefaultState(getDefaultState()
@@ -42,6 +46,12 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                 .with(HIDDEN, false)
                 .with(WAXED,false)
         );
+    }
+
+    public BlockState getGenerationState(Random random) {
+        return (BlockState)this.getDefaultState()
+                .with(Properties.HORIZONTAL_FACING, Direction.random(random))
+                .with(HIDDEN, random.nextBoolean());
     }
 
     @Override
@@ -135,6 +145,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
             BlockHitResult hit) {
         if (!world.isClient) {
             Inventory blockEntity = (Inventory) world.getBlockEntity(pos);
+            assert blockEntity != null;
             ItemStack handItem = player.getStackInHand(hand).copy();
 
             if ( player.getStackInHand(hand).isEmpty() & player.isCreative() ) {
@@ -155,14 +166,16 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                 String lootMsg = "Lootball loot was set to: " + handItem;
                 player.sendMessage(Text.of(lootMsg), true);
                 blockEntity.setStack(0, handItem);
-            } else if (!player.isCreative() & !player.isSpectator() & !blockEntity.getStack(0).isEmpty()) {
-                // Open loot
-                player.playSound(Lootballs.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.PLAYERS, 0.4F, 1.0F);
-                String lootMsg = "You found " + blockEntity.getStack(0).toString();
-                player.sendMessage(Text.of(lootMsg),true);
-                player.getInventory().offerOrDrop(blockEntity.getStack(0));
-                player.incrementStat(Lootballs.OPEN_LOOT_BALL);
-                world.removeBlock(pos, false);
+            } else {
+                if (!player.isCreative() & !player.isSpectator() & !blockEntity.getStack(0).isEmpty()) {
+                    // Open loot
+                    player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.PLAYERS, 0.4F, 1.0F);
+                    String lootMsg = "You found " + blockEntity.getStack(0).toString();
+                    player.sendMessage(Text.of(lootMsg),true);
+                    player.getInventory().offerOrDrop(blockEntity.getStack(0));
+                    player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);
+                    world.removeBlock(pos, false);
+                }
             }
         }
         return ActionResult.SUCCESS;

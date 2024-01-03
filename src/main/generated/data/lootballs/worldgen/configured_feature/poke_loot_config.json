@@ -1,0 +1,7 @@
+{
+  "type": "lootballs:loot_ball_feature",
+  "config": {
+    "blockID": "lootballs:poke_loot_ball",
+    "lootTableID": "lootballs:poke_loot_table"
+  }
+}
