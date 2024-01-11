@@ -3,7 +3,7 @@
 	"id": "lootballs",
 	"version": "${version}",
 	"name": "lootballs",
-	"description": "A cobblemon side-mod that adds pokéballs with loot from the original games to cobblemon for mapmaking. (Cobblemon mod is required)",
+	"description": "A cobblemon side-mod that adds pokéballs with loot from the original games to cobblemon.",
 	"authors": [
 		"Ripio"
 	],
