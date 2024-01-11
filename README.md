@@ -10,7 +10,7 @@ This cobblemon sidemod adds the famous pokéballs with loot from the original ga
 ### Loot Balls
 Loot Balls can contain up to a stack of an item inside. Objects are obtained by **right clicking on the pokeball**.
 
-Loot balls can be found everywhere in the world, but some loot balls are only obtainable under certain conditions. To see more details, check the github docs.
+Loot balls can be found everywhere in the world, but some loot balls are only obtainable under certain conditions. To see more details, check the [github docs](https://github.com/ResistorCat/cobblemon-loot-balls/tree/main/docs/Features.md).
 
 > Some loot balls will spawn invisibly, but they emit tiny sparks, so pay attention!
 ### Mapmakers
