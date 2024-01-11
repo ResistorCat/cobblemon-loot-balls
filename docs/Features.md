@@ -10,7 +10,7 @@
 
 ## Loot Balls
 The main focus of this mod is to add poke balls with loot for all existing poké balls in cobblemon.
-To see more detailed info about them, take a look at the [Loot Balls documentation](Lootballs).
+To see more detailed info about them, take a look at the [Loot Balls documentation](https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/docs/Lootballs.md).
 
 ## Future Features
 ### Loot Ball Finder ```Upcoming beta 1.1```
