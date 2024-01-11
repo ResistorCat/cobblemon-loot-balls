@@ -7,15 +7,10 @@ import ripio.lootballs.world.LootBallsPlacedFeatures;
 
 public class LootBallsLootBallGeneration {
     public static void generateLootBalls() {
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.POKE_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.CITRINE_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.VERDANT_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.AZURE_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.ROSEATE_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.SLATE_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.PREMIER_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.SAFARI_LOOT_PLACED_KEY);
-        BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, LootBallsPlacedFeatures.GREAT_LOOT_PLACED_KEY);
-
+        BiomeModifications.addFeature(
+                BiomeSelectors.all(),
+                GenerationStep.Feature.VEGETAL_DECORATION,
+                LootBallsPlacedFeatures.LOOT_BALL_PLACED_KEY
+        );
     }
 }

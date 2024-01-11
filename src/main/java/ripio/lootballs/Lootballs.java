@@ -26,9 +26,6 @@ public class Lootballs implements ModInitializer {
 		LootBallsStats.registerStats();
 		LootBallsGamerules.registerGamerules();
 		LootBallsFeatures.registerFeatures();
-
-		// World Generation
-		LOGGER.info("Registering world generation for " + MOD_ID);
-		LootBallsWorldGeneration.generateLootBallsWorldGen();
+		LootBallsWorldGeneration.registerWorldGen();
 	}
 }

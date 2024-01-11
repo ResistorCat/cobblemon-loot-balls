@@ -9,9 +9,6 @@ public class LootBallsGamerules {
     public static final GameRules.Key<GameRules.BooleanRule> GENERATE_LOOT_BALLS = GameRuleRegistry.register(
             "generateLootBalls", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true)
     );
-    public static final GameRules.Key<GameRules.BooleanRule> DO_LOOT_BALL_SPAWNING = GameRuleRegistry.register(
-            "doLootBallSpawning", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(false)
-    );
     public static final GameRules.Key<GameRules.BooleanRule> DO_LOOT_BALL_FISHING = GameRuleRegistry.register(
             "doLootBallFishing", GameRules.Category.MISC, GameRuleFactory.createBooleanRule(true)
     );

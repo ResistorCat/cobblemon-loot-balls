@@ -9,42 +9,21 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
 import ripio.lootballs.Lootballs;
-import ripio.lootballs.util.LootBallsUtils;
 
 import java.util.List;
 
 public class LootBallsPlacedFeatures {
-    public static final RegistryKey<PlacedFeature> POKE_LOOT_PLACED_KEY = registerKey("poke_loot_placed");
-    public static final RegistryKey<PlacedFeature> CITRINE_LOOT_PLACED_KEY = registerKey("citrine_loot_placed");
-    public static final RegistryKey<PlacedFeature> VERDANT_LOOT_PLACED_KEY = registerKey("verdant_loot_placed");
-    public static final RegistryKey<PlacedFeature> AZURE_LOOT_PLACED_KEY = registerKey("azure_loot_placed");
-    public static final RegistryKey<PlacedFeature> ROSEATE_LOOT_PLACED_KEY = registerKey("roseate_loot_placed");
-    public static final RegistryKey<PlacedFeature> SLATE_LOOT_PLACED_KEY = registerKey("slate_loot_placed");
-    public static final RegistryKey<PlacedFeature> PREMIER_LOOT_PLACED_KEY = registerKey("premier_loot_placed");
-    public static final RegistryKey<PlacedFeature> SAFARI_LOOT_PLACED_KEY = registerKey("safari_loot_placed");
-    public static final RegistryKey<PlacedFeature> GREAT_LOOT_PLACED_KEY = registerKey("great_loot_placed");
+    public static final RegistryKey<PlacedFeature> LOOT_BALL_PLACED_KEY = registerKey("loot_ball_placed");
 
     public static void bootstrap(Registerable<PlacedFeature> context) {
         var configuredFeatureRegistryEntryLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
-        register(context, POKE_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.POKE_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, CITRINE_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.CITRINE_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, VERDANT_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.VERDANT_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, AZURE_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.AZURE_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, ROSEATE_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.ROSEATE_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, SLATE_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.SLATE_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, PREMIER_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.PREMIER_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, SAFARI_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.SAFARI_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.COMMON_CHANCE));
-        register(context, GREAT_LOOT_PLACED_KEY, configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.GREAT_LOOT_KEY),
-                LootBallsPlacement.modifiersWithRarity(LootBallsUtils.UNCOMMON_CHANCE));
+        register(
+                context,
+                LOOT_BALL_PLACED_KEY,
+                configuredFeatureRegistryEntryLookup.getOrThrow(LootBallsConfiguredFeatures.LOOT_BALL_CONFIG_KEY),
+                LootBallsPlacement.modifiers()
+        );
 
     }
     public static RegistryKey<PlacedFeature> registerKey(String name) {
