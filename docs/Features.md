@@ -17,4 +17,4 @@ To see more detailed info about them, take a look at the [Loot Balls documentati
 The **Loot Ball Finder** is a Dowsing-Machine-like tool used to detect hidden loot balls.
 
 #### Crafting Recipe
-![](assets\loot_ball_finder_recipe.png)
+![](https://github.com/ResistorCat/cobblemon-loot-balls/tree/main/docs/assets/loot_ball_finder_recipe.png)
