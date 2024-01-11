@@ -1,7 +1,0 @@
-{
-  "type": "lootballs:loot_ball_feature",
-  "config": {
-    "blockID": "lootballs:citrine_loot_ball",
-    "lootTableID": "lootballs:citrine_loot_table"
-  }
-}
