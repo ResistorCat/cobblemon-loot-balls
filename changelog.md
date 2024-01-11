@@ -1,4 +1,1 @@
-- Added **natural loot ball generation**. The remaining loot balls will be added in future updates.
-- Added ```generateLootBalls``` and ```doLootBallFishing``` game rules.
-- Loot Ball loot will now display the item name instead of the "path" when obtained in Survival.
-- Invisible loot balls will now spark more often.
+- Fixed non-waterlogged loot balls when generated in water.

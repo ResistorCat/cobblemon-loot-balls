@@ -25,6 +25,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import ripio.lootballs.block.entity.LootBallEntity;
@@ -47,13 +48,14 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
         );
     }
 
-    public BlockState getGenerationState(Random random) {
+    public BlockState getGenerationState(Random random, BlockPos pos, StructureWorldAccess world) {
         // 20% Chance to be hidden on generation
         boolean hidden = (random.nextFloat() <= 0.2F);
         if (hidden) this.doubleLoot = true;
         return this.getDefaultState()
                 .with(Properties.HORIZONTAL_FACING, Direction.fromHorizontal(random.nextInt(3)))
-                .with(HIDDEN, hidden);
+                .with(HIDDEN, hidden)
+                .with(WATERLOGGED, world.getFluidState(pos).isOf(Fluids.WATER));
     }
 
     @Override

@@ -58,9 +58,6 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
             TagKey<Block>[] blockTags = LootBallsUtils.getLootBallBlockTags(blockId);
 
             /// STEP 2: Natural Generation
-            // Get Loot Ball State
-            BlockState ballState = ((LootBall) Registries.BLOCK.get(blockId)).getGenerationState(random);
-            if (ballState == null) throw new IllegalStateException(blockId + "could could not be parsed to a valid block identifier!");
 
             // Get a valid position
             BlockPos testPos = new BlockPos(origin);
@@ -76,6 +73,10 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
 
                 if (blockOf(floorState, blockTags)) {
                     if (world.getBlockState(testPos).isIn(LootBallsBlockTagProvider.LOOT_BALLS_REPLACEABLES)) {
+                        // Get Loot Ball State
+                        BlockState ballState = ((LootBall) Registries.BLOCK.get(blockId)).getGenerationState(random, testPos, world);
+                        if (ballState == null) throw new IllegalStateException(blockId + "could could not be parsed to a valid block identifier!");
+                        // Place Loot Ball
                         world.setBlockState(testPos, ballState, Block.NOTIFY_LISTENERS);
                         LootBallEntity.setLootTable(world, random, testPos, lootTableId);
                         // DEBUG: Lootballs.LOGGER.info("LOOTBALL: " + blockId.getPath() + " " + testPos.toShortString());
