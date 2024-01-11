@@ -2,4 +2,3 @@
 - Added ```generateLootBalls``` and ```doLootBallFishing``` game rules.
 - Loot Ball loot will now display the item name instead of the "path" when obtained in Survival.
 - Invisible loot balls will now spark more often.
-- 
