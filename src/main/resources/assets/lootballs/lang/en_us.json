@@ -33,5 +33,7 @@
   "block.lootballs.verdant_loot_ball": "Verdant Loot Ball",
   "itemGroup.lootballs.lootballs_group": "Loot Balls",
   "stat.lootballs.open_loot_ball": "Loot balls opened",
-  "subtitles.lootballs.lootball_open": "Loot ball open fanfare"
+  "subtitles.lootballs.lootball_open": "Loot ball open fanfare",
+  "gamerule.doLootBallFishing": "Allow LootBall Fishing",
+  "gamerule.generateLootBalls": "Enable Loot Ball natural generation"
 }

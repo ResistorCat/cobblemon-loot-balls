@@ -1,9 +1,9 @@
-// 1.20.1	2024-01-09T22:36:37.5998069	lootballs/minecraft:chest Loot Table
+// 1.20.1	2024-01-10T23:00:45.3210577	lootballs/minecraft:chest Loot Table
 6907a647f5d72fd52d45b948f113967b74ab04a4 data\lootballs\loot_tables\verdant_loot_table.json
 88e0d9c7120c5ec41e1dd3bd2ad14d7b67c8b4ab data\lootballs\loot_tables\great_loot_table.json
 d29f777143cc6ec69a6ad8a219d285336a75d1b5 data\lootballs\loot_tables\slate_loot_table.json
-cd97b468429d50b6fff2a411526aea1b30fd75c9 data\lootballs\loot_tables\ultra_loot_table.json
 203bfd6472b4e966f5be6decfde4f450b72c4d0a data\lootballs\loot_tables\safari_loot_table.json
+cd97b468429d50b6fff2a411526aea1b30fd75c9 data\lootballs\loot_tables\ultra_loot_table.json
 54e891329719d1ad0cfa083bc4d08d7ab721de20 data\lootballs\loot_tables\premier_loot_table.json
 66ce1c28f1c8c894f234a51b39e7c8b233b45e82 data\lootballs\loot_tables\poke_loot_table.json
 6fa56f22664136c4aa8719037da28e2791623ae0 data\lootballs\loot_tables\roseate_loot_table.json
