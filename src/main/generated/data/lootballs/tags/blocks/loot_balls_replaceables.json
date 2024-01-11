@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:replaceable_by_trees",
+    "minecraft:air",
+    "minecraft:bubble_column",
+    "minecraft:cave_air",
+    "minecraft:fire",
+    "minecraft:grass",
+    "minecraft:snow",
+    "minecraft:soul_fire",
+    "minecraft:structure_void",
+    "minecraft:void_air"
+  ]
+}

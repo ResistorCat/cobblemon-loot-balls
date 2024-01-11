@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:base_stone_overworld",
+    "#minecraft:dirt",
+    "#minecraft:sand",
+    "#minecraft:terracotta",
+    "#minecraft:iron_ores",
+    "#minecraft:copper_ores",
+    "#minecraft:snow",
+    "#minecraft:ice",
+    "#minecraft:base_stone_nether",
+    "#minecraft:soul_fire_base_blocks",
+    "minecraft:gravel",
+    "minecraft:suspicious_gravel",
+    "minecraft:sandstone",
+    "minecraft:red_sandstone",
+    "minecraft:calcite",
+    "minecraft:end_stone",
+    "minecraft:end_stone_bricks",
+    "minecraft:purpur_block",
+    "minecraft:netherrack"
+  ]
+}

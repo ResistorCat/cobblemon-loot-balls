@@ -1,0 +1,11 @@
+{
+  "feature": "lootballs:loot_ball_config",
+  "placement": [
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}
