@@ -1,1 +1,1 @@
-- Fixed non-waterlogged loot balls when generated in water.
+- Added config file in ```config``` folder with 4 new configurations.

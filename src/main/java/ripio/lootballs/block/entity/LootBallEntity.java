@@ -34,9 +34,11 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
 
     public static final String LOOT_TABLE_KEY = "LootTable";
     public static final String LOOT_TABLE_SEED_KEY = "LootTableSeed";
+    public static final String USES_KEY = "Uses";
     @Nullable
     protected Identifier lootTableId;
     protected long lootTableSeed;
+    protected int uses;
 
     public static void setLootTable(BlockView world, Random random, BlockPos pos, Identifier id) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -69,6 +71,25 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         return true;
     }
 
+    public void setUses(int uses) {
+        this.uses = uses;
+    }
+
+    protected boolean deserializeUses(NbtCompound nbt) {
+        if (nbt.contains(USES_KEY, NbtElement.INT_TYPE)) {
+            this.uses = nbt.getInt(USES_KEY);
+            return true;
+        }
+        return false;
+    }
+    protected boolean serializeUses(NbtCompound nbt) {
+        if (this.uses <= 0){
+            return false;
+        }
+        nbt.putInt(USES_KEY, this.uses);
+        return true;
+    }
+
     @Override
     public void checkLootInteraction(@Nullable PlayerEntity player) {
         if (this.lootTableId != null && this.world.getServer() != null) {
@@ -76,7 +97,12 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
             if (player instanceof ServerPlayerEntity) {
                 Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);
             }
-            this.lootTableId = null;
+            if (this.uses > 0){
+                this.lootTableSeed = Random.create().nextLong();
+                this.uses -= 1;
+            } else {
+                this.lootTableId = null;
+            }
             LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder((ServerWorld)this.world).add(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos));
             if (player != null) {
                 builder.luck(player.getLuck()).add(LootContextParameters.THIS_ENTITY, player);
