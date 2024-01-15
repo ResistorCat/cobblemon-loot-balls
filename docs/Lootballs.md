@@ -1,10 +1,3 @@
-# Gamerules
-
-- ```generateLootBalls```: Default to ```true```. It determines if
-Loot Balls will be generated naturally or not.
-- ```doLootBallFishing```: Default to ```true```. It determines if Loot Balls
- can be obtained from fishing. 
-
 # Loot Balls
 ## Sources
 - **Natural Generation**: Loot Balls can be generated on all biomes.
