@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ripio.lootballs.block.LootBallsBlockEntities;
 import ripio.lootballs.block.LootBallsBlocks;
+import ripio.lootballs.config.LootBallsConfigs;
 import ripio.lootballs.item.LootBallsItemGroups;
 import ripio.lootballs.sound.LootBallsSoundEvents;
 import ripio.lootballs.stat.LootBallsStats;
@@ -19,6 +20,7 @@ public class Lootballs implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		LootBallsConfigs.registerConfigs(); // PRIORITY
 		LootBallsBlocks.registerModBlocks();
 		LootBallsBlockEntities.registerBlockEntities();
 		LootBallsItemGroups.registerItemGroups();
