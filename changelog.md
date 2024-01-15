@@ -1,1 +1,1 @@
-- Fixed non-waterlogged loot balls when generated in water.
+- Changed minimum fabric loader version to add sinytra connector compatibility.
