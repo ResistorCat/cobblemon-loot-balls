@@ -1,12 +1,12 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "lootballs:item/lootball_finder/screen_0",
+		"0": "lootballs:item/loot_ball_finder/screen_0",
 		"1": "block/copper_block",
 		"2": "block/shulker_block",
 		"3": "block/sculk",
 		"4": "block/redstone_block",
-		"particle": "lootballs:item/lootball_finder/screen_1"
+		"particle": "lootballs:item/loot_ball_finder/screen_1"
 	},
 	"elements": [
 		{
