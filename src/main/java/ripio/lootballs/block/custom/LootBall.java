@@ -29,6 +29,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import ripio.lootballs.block.entity.LootBallEntity;
+import ripio.lootballs.config.LootBallsConfigs;
 import ripio.lootballs.sound.LootBallsSoundEvents;
 import ripio.lootballs.stat.LootBallsStats;
 
@@ -172,18 +173,45 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                 blockEntity.setStack(0, handItem);
             } else {
                 if (!player.isCreative() & !player.isSpectator() & !blockEntity.getStack(0).isEmpty()) {
-                    // Open loot
-                    player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.PLAYERS, 0.5F, 1.0F);
-                    ItemStack lootItem = blockEntity.getStack(0);
-                    String lootMsg = "You found " + lootItem.getCount() + " " + lootItem.getItem().getName().getString();
-                    if (this.doubleLoot && state.get(HIDDEN)) {
-                        lootItem = lootItem.copyWithCount(lootItem.getCount() * 2);
-                        lootMsg = "You found " + lootItem.getCount() + " " + lootItem.getItem().getName().getString() + " in HIDDEN loot!";
+                    // Check if per player lootballs is true
+                    boolean canOpen = true;
+                    if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
+                        if (blockEntity.isOpener(player.getUuid())) {
+                            canOpen = false;
+                            player.sendMessage(Text.of("You already opened this loot ball!"), true);
+                        }
                     }
-                    player.sendMessage(Text.of(lootMsg),true);
-                    player.getInventory().offerOrDrop(lootItem);
-                    player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);
-                    world.removeBlock(pos, false);
+
+                    if (canOpen) {
+                        // Open loot
+                        player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.PLAYERS, 0.5F, 1.0F);
+                        ItemStack lootItem = blockEntity.getStack(0);
+                        blockEntity.setStack(0,lootItem.copy()); // Workaround for re-stock the loot ball.
+                        String lootMsg = "You found " + lootItem.getCount() + " " + lootItem.getItem().getName().getString();
+                        if (this.doubleLoot && state.get(HIDDEN)) {
+                            lootItem = lootItem.copyWithCount(lootItem.getCount() * 2);
+                            lootMsg = "You found " + lootItem.getCount() + " " + lootItem.getItem().getName().getString() + " in HIDDEN loot!";
+                        }
+                        player.sendMessage(Text.of(lootMsg),true);
+                        player.getInventory().offerOrDrop(lootItem);
+                        player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);
+                        blockEntity.setUses(blockEntity.getUses() - 1);
+
+                        if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
+                            blockEntity.addOpener(player.getUuid());
+                            if (!LootBallsConfigs.IGNORE_PER_PLAYER_LOOTBALLS_USES) {
+                                if (blockEntity.getUses() <= 0) {
+                                    world.removeBlock(pos, false);
+                                }
+                            }
+                        } else {
+                            if (blockEntity.getUses() <= 0) {
+                                world.removeBlock(pos, false);
+                            }
+                        }
+
+                    }
+
                 }
             }
         }
