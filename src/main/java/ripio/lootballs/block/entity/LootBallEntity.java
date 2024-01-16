@@ -23,6 +23,11 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
+import ripio.lootballs.config.LootBallsConfigs;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import static ripio.lootballs.block.LootBallsBlockEntities.LOOT_BALL_ENTITY;
 
@@ -35,10 +40,14 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     public static final String LOOT_TABLE_KEY = "LootTable";
     public static final String LOOT_TABLE_SEED_KEY = "LootTableSeed";
     public static final String USES_KEY = "Uses";
+    public static final String OPENERS_KEY = "Openers";
+    public static final String INFINITE_KEY = "Infinite";
     @Nullable
     protected Identifier lootTableId;
     protected long lootTableSeed;
-    protected int uses;
+    protected int uses = LootBallsConfigs.USES_PER_LOOTBALL;
+    protected Set<UUID> openers = new HashSet<>();
+    protected boolean infinite = false;
 
     public static void setLootTable(BlockView world, Random random, BlockPos pos, Identifier id) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -49,8 +58,8 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     public void setLootTable(Identifier id, long seed) {
         this.lootTableId = id;
         this.lootTableSeed = seed;
+        this.markDirty();
     }
-
     protected boolean deserializeLootTable(NbtCompound nbt) {
         if (nbt.contains(LOOT_TABLE_KEY, NbtElement.STRING_TYPE)) {
             this.lootTableId = new Identifier(nbt.getString(LOOT_TABLE_KEY));
@@ -59,7 +68,6 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         }
         return false;
     }
-
     protected boolean serializeLootTable(NbtCompound nbt) {
         if (this.lootTableId == null) {
             return false;
@@ -70,24 +78,49 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         }
         return true;
     }
-
-    public void setUses(int uses) {
-        this.uses = uses;
+    public void addOpener(UUID uuid) {
+        this.openers.add(uuid);
+        this.markDirty();
     }
-
-    protected boolean deserializeUses(NbtCompound nbt) {
-        if (nbt.contains(USES_KEY, NbtElement.INT_TYPE)) {
-            this.uses = nbt.getInt(USES_KEY);
+    public boolean isOpener(UUID uuid) {
+        return this.openers.contains(uuid);
+    }
+    protected boolean serializeOpeners(NbtCompound nbt) {
+        if (this.openers.isEmpty()) {
+            return false;
+        }
+        StringBuilder saveString = new StringBuilder();
+        for (UUID opener:
+             openers) {
+            if (saveString.isEmpty()) {
+                saveString = new StringBuilder(opener.toString());
+            } else {
+                saveString.append(",").append(opener.toString());
+            }
+        }
+        nbt.putString(OPENERS_KEY, saveString.toString());
+        return true;
+    }
+    protected boolean deserializeOpeners(NbtCompound nbt) {
+        if (nbt.contains(OPENERS_KEY, NbtElement.STRING_TYPE)) {
+            String[] uuidStrings = nbt.getString(OPENERS_KEY).split(",");
+            for (String strUUID:
+                 uuidStrings) {
+                this.addOpener(UUID.fromString(strUUID));
+            }
             return true;
         }
         return false;
     }
-    protected boolean serializeUses(NbtCompound nbt) {
-        if (this.uses <= 0){
-            return false;
+
+    public void setUses(int uses) {
+        if (!this.infinite) {
+            this.uses = uses;
+            this.markDirty();
         }
-        nbt.putInt(USES_KEY, this.uses);
-        return true;
+    }
+    public int getUses() {
+        return this.uses;
     }
 
     @Override
@@ -97,17 +130,13 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
             if (player instanceof ServerPlayerEntity) {
                 Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);
             }
-            if (this.uses > 0){
-                this.lootTableSeed = Random.create().nextLong();
-                this.uses -= 1;
-            } else {
-                this.lootTableId = null;
-            }
+            this.lootTableId = null;
             LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder((ServerWorld)this.world).add(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos));
             if (player != null) {
                 builder.luck(player.getLuck()).add(LootContextParameters.THIS_ENTITY, player);
             }
             lootTable.supplyInventory(this, builder.build(LootContextTypes.CHEST), this.lootTableSeed);
+            this.markDirty();
         }
     }
 
@@ -119,20 +148,25 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
-        //Inventories.readNbt(nbt, items);
-        this.items = DefaultedList.ofSize(this.size(), ItemStack.EMPTY);
-        if (!this.deserializeLootTable(nbt)) {
-            Inventories.readNbt(nbt, this.items);
+        Inventories.readNbt(nbt, this.items);
+        this.deserializeLootTable(nbt);
+        this.deserializeOpeners(nbt);
+        if (nbt.contains(USES_KEY, NbtElement.INT_TYPE)) {
+            this.uses = nbt.getInt(USES_KEY);
+        }
+        if (nbt.contains(INFINITE_KEY, NbtElement.BYTE_TYPE)) {
+            this.infinite = nbt.getBoolean(INFINITE_KEY);
         }
     }
 
     @Override
     public void writeNbt(NbtCompound nbt) {
-        //Inventories.writeNbt(nbt, items);
+        Inventories.writeNbt(nbt, this.items);
+        this.serializeLootTable(nbt);
+        this.serializeOpeners(nbt);
+        nbt.putInt(USES_KEY, this.uses);
+        nbt.putBoolean(INFINITE_KEY, this.infinite);
         super.writeNbt(nbt);
-        if (!this.serializeLootTable(nbt)) {
-            Inventories.writeNbt(nbt, this.items);
-        }
     }
 
     @Override
