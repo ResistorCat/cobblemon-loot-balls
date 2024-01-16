@@ -10,6 +10,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import ripio.lootballs.Lootballs;
+import ripio.lootballs.block.LootBallsBlocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -22,6 +23,10 @@ public class LootBallsBlockTagProvider extends FabricTagProvider.BlockTagProvide
     public static final TagKey<Block> LOOT_BALLS_REPLACEABLES = TagKey.of(
             RegistryKeys.BLOCK,
             new Identifier(Lootballs.MOD_ID, "loot_balls_replaceables")
+    );
+    public static final TagKey<Block> LOOT_BALLS_BLOCKS = TagKey.of(
+            RegistryKeys.BLOCK,
+            new Identifier(Lootballs.MOD_ID, "loot_balls_blocks")
     );
 
     public LootBallsBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
@@ -62,6 +67,40 @@ public class LootBallsBlockTagProvider extends FabricTagProvider.BlockTagProvide
                 .add(Blocks.SOUL_FIRE)
                 .add(Blocks.STRUCTURE_VOID)
                 .add(Blocks.VOID_AIR);
+
+        getOrCreateTagBuilder(LOOT_BALLS_BLOCKS)
+                .add(LootBallsBlocks.AZURE_LOOT_BALL)
+                .add(LootBallsBlocks.BEAST_LOOT_BALL)
+                .add(LootBallsBlocks.CHERISH_LOOT_BALL)
+                .add(LootBallsBlocks.CITRINE_LOOT_BALL)
+                .add(LootBallsBlocks.DIVE_LOOT_BALL)
+                .add(LootBallsBlocks.DREAM_LOOT_BALL)
+                .add(LootBallsBlocks.DUSK_LOOT_BALL)
+                .add(LootBallsBlocks.FAST_LOOT_BALL)
+                .add(LootBallsBlocks.FRIEND_LOOT_BALL)
+                .add(LootBallsBlocks.GREAT_LOOT_BALL)
+                .add(LootBallsBlocks.HEAL_LOOT_BALL)
+                .add(LootBallsBlocks.HEAVY_LOOT_BALL)
+                .add(LootBallsBlocks.LEVEL_LOOT_BALL)
+                .add(LootBallsBlocks.LOVE_LOOT_BALL)
+                .add(LootBallsBlocks.LURE_LOOT_BALL)
+                .add(LootBallsBlocks.LUXURY_LOOT_BALL)
+                .add(LootBallsBlocks.MASTER_LOOT_BALL)
+                .add(LootBallsBlocks.MOON_LOOT_BALL)
+                .add(LootBallsBlocks.NEST_LOOT_BALL)
+                .add(LootBallsBlocks.NET_LOOT_BALL)
+                .add(LootBallsBlocks.PARK_LOOT_BALL)
+                .add(LootBallsBlocks.POKE_LOOT_BALL)
+                .add(LootBallsBlocks.PREMIER_LOOT_BALL)
+                .add(LootBallsBlocks.QUICK_LOOT_BALL)
+                .add(LootBallsBlocks.REPEAT_LOOT_BALL)
+                .add(LootBallsBlocks.ROSEATE_LOOT_BALL)
+                .add(LootBallsBlocks.SAFARI_LOOT_BALL)
+                .add(LootBallsBlocks.SLATE_LOOT_BALL)
+                .add(LootBallsBlocks.SPORT_LOOT_BALL)
+                .add(LootBallsBlocks.TIMER_LOOT_BALL)
+                .add(LootBallsBlocks.ULTRA_LOOT_BALL)
+                .add(LootBallsBlocks.VERDANT_LOOT_BALL);
     }
 
 }

@@ -8,6 +8,7 @@ import ripio.lootballs.block.LootBallsBlockEntities;
 import ripio.lootballs.block.LootBallsBlocks;
 import ripio.lootballs.config.LootBallsConfigs;
 import ripio.lootballs.item.LootBallsItemGroups;
+import ripio.lootballs.item.LootBallsItems;
 import ripio.lootballs.sound.LootBallsSoundEvents;
 import ripio.lootballs.stat.LootBallsStats;
 import ripio.lootballs.world.LootBallsFeatures;
@@ -23,6 +24,7 @@ public class Lootballs implements ModInitializer {
 		LootBallsConfigs.registerConfigs(); // PRIORITY
 		LootBallsBlocks.registerModBlocks();
 		LootBallsBlockEntities.registerBlockEntities();
+		LootBallsItems.registerModItems();
 		LootBallsItemGroups.registerItemGroups();
 		LootBallsSoundEvents.registerSoundEvents();
 		LootBallsStats.registerStats();
