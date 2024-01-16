@@ -1,1 +1,10 @@
+- Critical fix to NBT saving/loading for lootballs.
 - Added config file in ```config``` folder with 4 new configurations.
+  - From now, you can configure lootballs to allow loot for multiple players.
+  - Check the details in the [config docs](https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/docs/Configs.md)
+- Added new NBT tags to lootballs for mapmakers:
+  - ```Uses```: Indicates the uses remaining in a loot ball. When it reaches 0, the lootball is destroyed.
+  - ```Infinite```: Boolean byte that indicates if loot ball has infinite uses.
+- Tweaked loot ball generation.
+- Added Loot Ball Finder item.
+  - Currently, it only helps to find hidden loots within 2 chunks range.
