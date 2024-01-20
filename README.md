@@ -21,7 +21,6 @@ Loot balls can be found everywhere in the world, but some loot balls are only ob
 - Loot Balls can be **waterlogged**.
 
 ## Planned features
-- Integration with **Lootr** mod to share loot with other players.
 - Implement loot ball fishing, archaeology loot balls and chests with loot balls.
 - Add animations and decoration for loot ball opening.
 
