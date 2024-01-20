@@ -12,6 +12,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
+import ripio.lootballs.Lootballs;
 import ripio.lootballs.block.custom.LootBall;
 import ripio.lootballs.block.entity.LootBallEntity;
 import ripio.lootballs.datagen.LootBallsBlockTagProvider;
@@ -64,7 +65,7 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
             testPos = testPos.withY(random.nextBetween(world.getBottomY(), world.getTopY()));
             BlockState floorState;
 
-            for (int y = testPos.getY(); y > 0; y--){
+            for (int y = testPos.getY(); y > world.getBottomY(); y--){
                 testPos = testPos.down();
                 floorState = world.getBlockState(testPos.down());
 
@@ -79,7 +80,6 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
                         // Place Loot Ball
                         world.setBlockState(testPos, ballState, Block.NOTIFY_LISTENERS);
                         LootBallEntity.setLootTable(world, random, testPos, lootTableId);
-                        // DEBUG: Lootballs.LOGGER.info("LOOTBALL: " + blockId.getPath() + " " + testPos.toShortString());
                         return true;
                     }
                 }
