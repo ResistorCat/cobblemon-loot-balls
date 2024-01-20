@@ -6,11 +6,11 @@ import ripio.lootballs.Lootballs;
 public class LootBallsConfigs {
     public static SimpleConfig CONFIG;
     private static LootBallsConfigProvider configs;
-
     public static int MAX_LOOTBALLS_PER_CHUNK;
     public static boolean PER_PLAYER_LOOTBALLS;
     public static int USES_PER_LOOTBALL;
     public static boolean IGNORE_PER_PLAYER_LOOTBALLS_USES;
+    public static boolean NATURAL_DOUBLE_LOOT;
 
     public static void registerConfigs() {
         configs = new LootBallsConfigProvider();
@@ -26,6 +26,7 @@ public class LootBallsConfigs {
         configs.addKeyValuePair(new Pair<>("perPlayerLootballs", false), "(boolean) It determines if Loot Balls can be obtained by every player in the server (and it won't dissapear when used). Loot will be randomized for every player if a loot table is set.");
         configs.addKeyValuePair(new Pair<>("usesPerLootball", 1), "(integer) It determines the number of uses each naturally generated loot ball will have. Doesn't affect creative loot balls.");
         configs.addKeyValuePair(new Pair<>("ignorePerPlayerLootballsUses", true), "(boolean) When perPlayerLootballs is true, it determines if the number of uses of a ball will be ignored or not.");
+        configs.addKeyValuePair(new Pair<>("naturalDoubleLoot", true), "(boolean) It determines if hidden natural loot balls will grant double loot.");
     }
 
     private static void assignConfigs() {
@@ -33,7 +34,8 @@ public class LootBallsConfigs {
         PER_PLAYER_LOOTBALLS = CONFIG.getOrDefault("perPlayerLootballs", false);
         USES_PER_LOOTBALL = CONFIG.getOrDefault("usesPerLootball", 1);
         IGNORE_PER_PLAYER_LOOTBALLS_USES = CONFIG.getOrDefault("ignorePerPlayerLootballsUses", true);
+        NATURAL_DOUBLE_LOOT = CONFIG.getOrDefault("naturalDoubleLoot", true);
 
-        System.out.println("All " + configs.getConfigsList().size() + " have been set properly");
+        Lootballs.LOGGER.info(Lootballs.MOD_ID + ": All " + configs.getConfigsList().size() + " have been set properly");
     }
 }

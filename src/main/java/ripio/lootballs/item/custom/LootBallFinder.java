@@ -1,23 +1,34 @@
 package ripio.lootballs.item.custom;
 
+import com.cobblemon.mod.common.CobblemonSounds;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import ripio.lootballs.block.LootBallsBlocks;
 import ripio.lootballs.block.custom.LootBall;
 import ripio.lootballs.datagen.LootBallsBlockTagProvider;
 
+import java.util.List;
+
 public class LootBallFinder extends Item {
+    private boolean onCooldown = false;
     public LootBallFinder(Settings settings) {
-        super(settings);
+        super(settings.maxCount(1));
     }
 
     @Override
@@ -27,23 +38,36 @@ public class LootBallFinder extends Item {
             BlockPos blockPos = searchForLootBall(origin, world);
             if (blockPos == null) {
                 // Nothing found
-                user.sendMessage(Text.literal("No hidden loot balls found!"), true);
+                user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.not_found"), true);
+                user.playSound(CobblemonSounds.PC_OFF, SoundCategory.PLAYERS, 0.5F, 1.0F);
             } else {
                 // Found a lootball
                 double distance = origin.getSquaredDistance(blockPos);
                 if (distance < 64) {
-                    user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.75F, 1.0F);
-                    user.sendMessage(Text.literal("A hidden loot ball is VERY near!"), true);
+                    // Spawn particles in block and play sound
+                    Vec3d centerPos = blockPos.toCenterPos();
+                    world.addParticle(ParticleTypes.WITCH, centerPos.getX(), centerPos.getY(), centerPos.getZ(), 0.0, 0.5,0.0);
+                    world.addParticle(ParticleTypes.WITCH, centerPos.getX(), centerPos.getY(), centerPos.getZ(), 0.3, 0.3,0.3);
+                    world.addParticle(ParticleTypes.WITCH, centerPos.getX(), centerPos.getY(), centerPos.getZ(), -0.3, 0.3,-0.3);
+
+                    world.playSoundAtBlockCenter(blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
+
+                    user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.85F, 1.0F);
+                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.very_near"), true);
                 } else if (distance < 256) {
-                    user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.4F, 1.0F);
-                    user.sendMessage(Text.literal("A hidden loot ball is near!"), true);
+                    user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.55F, 1.0F);
+                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.near"), true);
                 } else {
-                    user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.25F, 1.0F);
-                    user.sendMessage(Text.literal("A hidden loot ball was detected within 2 chunks!"), true);
+                    user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.35F, 1.0F);
+                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.chunks"), true);
                 }
             }
+            // Set cooldown to 8 seconds
+            user.getItemCooldownManager().set(this, 160);
+            this.onCooldown = true;
         }
-        return TypedActionResult.pass(user.getStackInHand(hand));
+
+        return TypedActionResult.success(user.getStackInHand(hand), world.isClient());
     }
 
     @Nullable
@@ -74,5 +98,23 @@ public class LootBallFinder extends Item {
             return state.get(LootBall.HIDDEN);
         }
         return false;
+    }
+
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        if (world.isClient()) {
+            if (entity.isPlayer()) {
+                PlayerEntity player = (PlayerEntity) entity;
+                if (this.onCooldown && !player.getItemCooldownManager().isCoolingDown(stack.getItem())) {
+                    this.onCooldown = false;
+                    if (selected) player.playSound(CobblemonSounds.PC_ON, SoundCategory.PLAYERS, 0.75F, 1.0F);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        tooltip.add(Text.translatable("item.lootballs.loot_ball_finder.tooltip"));
     }
 }

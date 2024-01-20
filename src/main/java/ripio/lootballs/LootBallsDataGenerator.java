@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.registry.RegistryBuilder;
 import net.minecraft.registry.RegistryKeys;
 import ripio.lootballs.datagen.LootBallsBlockTagProvider;
+import ripio.lootballs.datagen.LootBallsLanguageProvider;
 import ripio.lootballs.datagen.LootBallsLootTableProvider;
 import ripio.lootballs.datagen.LootBallsWorldGenerator;
 import ripio.lootballs.world.LootBallsConfiguredFeatures;
@@ -19,6 +20,7 @@ public class LootBallsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(LootBallsLootTableProvider::new);
         pack.addProvider(LootBallsWorldGenerator::new);
         pack.addProvider(LootBallsBlockTagProvider::new);
+        pack.addProvider(LootBallsLanguageProvider::new);
     }
 
     @Override

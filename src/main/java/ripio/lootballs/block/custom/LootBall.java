@@ -28,6 +28,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import ripio.lootballs.Lootballs;
 import ripio.lootballs.block.entity.LootBallEntity;
 import ripio.lootballs.config.LootBallsConfigs;
 import ripio.lootballs.sound.LootBallsSoundEvents;
@@ -51,8 +52,9 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
 
     public BlockState getGenerationState(Random random, BlockPos pos, StructureWorldAccess world) {
         // 20% Chance to be hidden on generation
+        this.doubleLoot = false;
         boolean hidden = (random.nextFloat() <= 0.2F);
-        if (hidden) this.doubleLoot = true;
+        if (hidden && LootBallsConfigs.NATURAL_DOUBLE_LOOT) this.doubleLoot = true;
         return this.getDefaultState()
                 .with(Properties.HORIZONTAL_FACING, Direction.fromHorizontal(random.nextInt(3)))
                 .with(HIDDEN, hidden)
@@ -67,19 +69,22 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
             Random random
     ) {
         if (state.get(HIDDEN) & !state.get(WAXED)) {
-            double d = (double) pos.getX() + 0.9 - (double) (random.nextFloat() * 0.8f);
-            double e = (double) pos.getY() + 0.6 - (double) (random.nextFloat() * 0.1f);
-            double f = (double) pos.getZ() + 0.9 - (double) (random.nextFloat() * 0.8f);
             if (random.nextInt(18) == 0) {
-                world.addParticle(
-                        ParticleTypes.ELECTRIC_SPARK,
-                        d,
-                        e,
-                        f,
-                        random.nextGaussian() * 0.02,
-                        random.nextGaussian() * 0.02,
-                        random.nextGaussian() * 0.02
-                );
+                // Generate 3 sparks
+                for (int i = 0; i < 3; i++) {
+                    double d = (double) pos.getX() + 0.9 - (double) (random.nextFloat() * 0.8f);
+                    double e = (double) pos.getY() + 0.6 - (double) (random.nextFloat() * 0.1f);
+                    double f = (double) pos.getZ() + 0.9 - (double) (random.nextFloat() * 0.8f);
+                    world.addParticle(
+                            ParticleTypes.ELECTRIC_SPARK,
+                            d,
+                            e,
+                            f,
+                            random.nextGaussian() * 0.1,
+                            random.nextGaussian() * 0.1,
+                            random.nextGaussian() * 0.1
+                    );
+                }
             }
         }
     }
@@ -88,7 +93,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
     public BlockEntity createBlockEntity(
             BlockPos pos,
             BlockState state) {
-        return new LootBallEntity(pos, state);
+        return new LootBallEntity(pos, state, this.doubleLoot);
     }
 
     @Override
@@ -156,19 +161,19 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
             if ( player.getStackInHand(hand).isEmpty() & player.isCreative() ) {
                 player.playSound(SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.PLAYERS, 0.4F, 1.0F);
                 world.setBlockState(pos, state.with(HIDDEN, !state.get(HIDDEN)));
-                player.sendMessage(Text.of("Lootball visibility toggled!"), true);
+                player.sendMessage(Text.translatable("block.lootballs.loot_ball.visibility"), true);
             } else if (player.isCreative() & handItem.isOf(Items.HONEYCOMB) & state.get(HIDDEN)) {
                 // Toggle waxed
                 Boolean isWaxed = !state.get(WAXED);
                 world.setBlockState(pos, state.with(WAXED, isWaxed));
                 SoundEvent waxSnd = isWaxed ? SoundEvents.ITEM_HONEYCOMB_WAX_ON : SoundEvents.ITEM_AXE_WAX_OFF;
                 player.playSound(waxSnd, SoundCategory.PLAYERS, 0.4F,1.0F);
-                String waxMsg = "Lootball sparks set to: " + (isWaxed ? "OFF" : "ON");
+                String waxMsg = Text.translatable("block.lootballs.loot_ball.wax").getString() + (isWaxed ? "OFF" : "ON");
                 player.sendMessage(Text.of(waxMsg), true);
             } else if (player.isCreative()) {
                 // Set loot to full stack in hand
                 player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.4F, 1.0F);
-                String lootMsg = "Lootball loot was set to: " + handItem.getCount() + " " + handItem.getItem().getName().getString();
+                String lootMsg = Text.translatable("block.lootballs.loot_ball.set_loot").getString() + handItem.getCount() + " " + handItem.getItem().getName().getString();
                 player.sendMessage(Text.of(lootMsg), true);
                 blockEntity.setStack(0, handItem);
             } else {
@@ -178,7 +183,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                     if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
                         if (blockEntity.isOpener(player.getUuid())) {
                             canOpen = false;
-                            player.sendMessage(Text.of("You already opened this loot ball!"), true);
+                            player.sendMessage(Text.translatable("block.lootballs.loot_ball.already_open"), true);
                         }
                     }
 
@@ -187,10 +192,10 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                         player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.PLAYERS, 0.5F, 1.0F);
                         ItemStack lootItem = blockEntity.getStack(0);
                         blockEntity.setStack(0,lootItem.copy()); // Workaround for re-stock the loot ball.
-                        String lootMsg = "You found " + lootItem.getCount() + " " + lootItem.getItem().getName().getString();
-                        if (this.doubleLoot && state.get(HIDDEN)) {
+                        String lootMsg = Text.translatable("block.lootballs.loot_ball.open").getString() + lootItem.getCount() + " " + lootItem.getItem().getName().getString();
+                        if (blockEntity.hasDoubleLoot()) {
                             lootItem = lootItem.copyWithCount(lootItem.getCount() * 2);
-                            lootMsg = "You found " + lootItem.getCount() + " " + lootItem.getItem().getName().getString() + " in HIDDEN loot!";
+                            lootMsg = Text.translatable("block.lootballs.loot_ball.double_loot").getString() + Text.translatable("block.lootballs.loot_ball.open").getString() + lootItem.getCount() + " " + lootItem.getItem().getName().getString();
                         }
                         player.sendMessage(Text.of(lootMsg),true);
                         player.getInventory().offerOrDrop(lootItem);

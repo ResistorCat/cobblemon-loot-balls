@@ -7,6 +7,7 @@
   can be obtained by every player in the server (and it won't dissapear when used). **Loot will be randomized for every player if a loot table is set.**
 - ```usesPerLootball```: (_Integer_) Defaults to ```1```. It determines the number of uses each naturally generated loot ball will have. **Doesn't affect creative loot balls.**
 - ```ignorePerPlayerLootballsUses```: (_Boolean_) Defaults to ```true```. When ```perPlayerLootballs``` is ```true```, it determines if the number of uses of a ball will be ignored or not.
+- ```naturalDoubleLoot```: (_Boolean_) Defaults to ```true```. It determines if hidden natural loot balls will grant double loot.
 
 # Gamerules
 > Note: Some gamerules only apply when generating new chunks.

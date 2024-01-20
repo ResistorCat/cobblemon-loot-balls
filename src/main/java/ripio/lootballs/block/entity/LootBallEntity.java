@@ -33,21 +33,27 @@ import static ripio.lootballs.block.LootBallsBlockEntities.LOOT_BALL_ENTITY;
 
 public class LootBallEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
     private DefaultedList<ItemStack> items = DefaultedList.ofSize(1,ItemStack.EMPTY);
-    public LootBallEntity(BlockPos pos, BlockState state) {
-        super(LOOT_BALL_ENTITY, pos, state);
-    }
-
     public static final String LOOT_TABLE_KEY = "LootTable";
     public static final String LOOT_TABLE_SEED_KEY = "LootTableSeed";
     public static final String USES_KEY = "Uses";
     public static final String OPENERS_KEY = "Openers";
     public static final String INFINITE_KEY = "Infinite";
+    public static final String DOUBLE_LOOT_KEY = "DoubleLoot";
     @Nullable
     protected Identifier lootTableId;
     protected long lootTableSeed;
     protected int uses = LootBallsConfigs.USES_PER_LOOTBALL;
     protected Set<UUID> openers = new HashSet<>();
     protected boolean infinite = false;
+    protected boolean doubleLoot = false;
+    public LootBallEntity(BlockPos pos, BlockState state, boolean doubleLoot) {
+        super(LOOT_BALL_ENTITY, pos, state);
+        this.doubleLoot = doubleLoot;
+    }
+
+    public LootBallEntity(BlockPos pos, BlockState state) {
+        super(LOOT_BALL_ENTITY, pos, state);
+    }
 
     public static void setLootTable(BlockView world, Random random, BlockPos pos, Identifier id) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
@@ -123,6 +129,8 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         return this.uses;
     }
 
+    public boolean hasDoubleLoot() { return this.doubleLoot; }
+
     @Override
     public void checkLootInteraction(@Nullable PlayerEntity player) {
         if (this.lootTableId != null && this.world.getServer() != null) {
@@ -157,6 +165,9 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         if (nbt.contains(INFINITE_KEY, NbtElement.BYTE_TYPE)) {
             this.infinite = nbt.getBoolean(INFINITE_KEY);
         }
+        if (nbt.contains(DOUBLE_LOOT_KEY, NbtElement.BYTE_TYPE)) {
+            this.doubleLoot = nbt.getBoolean(DOUBLE_LOOT_KEY);
+        }
     }
 
     @Override
@@ -166,6 +177,7 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         this.serializeOpeners(nbt);
         nbt.putInt(USES_KEY, this.uses);
         nbt.putBoolean(INFINITE_KEY, this.infinite);
+        nbt.putBoolean(DOUBLE_LOOT_KEY, this.doubleLoot);
         super.writeNbt(nbt);
     }
 
