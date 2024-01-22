@@ -2,10 +2,8 @@ package ripio.lootballs.item.custom;
 
 import com.cobblemon.mod.common.CobblemonSounds;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,7 +18,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ripio.lootballs.block.LootBallsBlocks;
 import ripio.lootballs.block.custom.LootBall;
 import ripio.lootballs.datagen.LootBallsBlockTagProvider;
 
