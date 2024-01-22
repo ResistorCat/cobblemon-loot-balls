@@ -1,7 +1,6 @@
 package ripio.lootballs.world;
 
 import net.minecraft.world.gen.placementmodifier.*;
-import ripio.lootballs.config.LootBallsConfigs;
 
 import java.util.List;
 

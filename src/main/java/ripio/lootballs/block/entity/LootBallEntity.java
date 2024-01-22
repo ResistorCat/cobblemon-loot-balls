@@ -124,7 +124,7 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     public float getMultiplier() { return this.multiplier; }
     @Override
     public void checkLootInteraction(@Nullable PlayerEntity player) {
-        if (this.lootTableId != null && this.world.getServer() != null) {
+        if (this.lootTableId != null && this.world != null && this.world.getServer() != null) {
             LootTable lootTable = this.world.getServer().getLootManager().getLootTable(this.lootTableId);
             if (player instanceof ServerPlayerEntity) {
                 Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);

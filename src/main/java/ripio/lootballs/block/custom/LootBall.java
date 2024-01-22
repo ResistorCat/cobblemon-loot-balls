@@ -1,6 +1,5 @@
 package ripio.lootballs.block.custom;
 
-import com.cobblemon.mod.common.CobblemonSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -31,7 +30,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import ripio.lootballs.Lootballs;
 import ripio.lootballs.block.entity.LootBallEntity;
 import ripio.lootballs.config.LootBallsConfigs;
 import ripio.lootballs.sound.LootBallsSoundEvents;
@@ -106,7 +104,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
 
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return (BlockState)this.getDefaultState()
+        return this.getDefaultState()
                 .with(Properties.HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite())
                 .with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).isOf(Fluids.WATER));
     }

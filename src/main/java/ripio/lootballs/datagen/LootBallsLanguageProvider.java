@@ -2,9 +2,7 @@ package ripio.lootballs.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.stat.StatType;
 import ripio.lootballs.block.LootBallsBlocks;
-import ripio.lootballs.item.LootBallsItemGroups;
 import ripio.lootballs.item.LootBallsItems;
 import ripio.lootballs.stat.LootBallsStats;
 
