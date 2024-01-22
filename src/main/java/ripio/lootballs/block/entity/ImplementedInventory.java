@@ -105,6 +105,7 @@ public interface ImplementedInventory extends Inventory {
         if (stack.getCount() > stack.getMaxCount()) {
             stack.setCount(stack.getMaxCount());
         }
+        this.markDirty();
     }
     
     /**

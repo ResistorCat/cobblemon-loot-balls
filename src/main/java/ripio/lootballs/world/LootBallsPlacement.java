@@ -8,9 +8,7 @@ import java.util.List;
 public class LootBallsPlacement {
     public static List<PlacementModifier> modifiers() {
         return List.of(
-                SquarePlacementModifier.of(),
-                BiomePlacementModifier.of(),
-                CountPlacementModifier.of(LootBallsConfigs.MAX_LOOTBALLS_PER_CHUNK)
+                BiomePlacementModifier.of()
         );
     }
 }

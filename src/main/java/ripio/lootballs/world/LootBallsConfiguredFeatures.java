@@ -21,7 +21,7 @@ public class LootBallsConfiguredFeatures {
                 context,
                 LOOT_BALL_CONFIG_KEY,
                 LOOT_BALL_FEATURE,
-                new LootBallFeatureConfig(0.035F)
+                new LootBallFeatureConfig(0.1F)
         );
 
     }

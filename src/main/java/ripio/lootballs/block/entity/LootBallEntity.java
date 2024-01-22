@@ -32,23 +32,23 @@ import java.util.UUID;
 import static ripio.lootballs.block.LootBallsBlockEntities.LOOT_BALL_ENTITY;
 
 public class LootBallEntity extends BlockEntity implements ImplementedInventory, SidedInventory {
-    private DefaultedList<ItemStack> items = DefaultedList.ofSize(1,ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> items = DefaultedList.ofSize(1,ItemStack.EMPTY);
     public static final String LOOT_TABLE_KEY = "LootTable";
     public static final String LOOT_TABLE_SEED_KEY = "LootTableSeed";
     public static final String USES_KEY = "Uses";
     public static final String OPENERS_KEY = "Openers";
     public static final String INFINITE_KEY = "Infinite";
-    public static final String DOUBLE_LOOT_KEY = "DoubleLoot";
+    public static final String MULTIPLIER_KEY = "Multiplier";
     @Nullable
     protected Identifier lootTableId;
     protected long lootTableSeed;
     protected int uses = LootBallsConfigs.USES_PER_LOOTBALL;
     protected Set<UUID> openers = new HashSet<>();
     protected boolean infinite = false;
-    protected boolean doubleLoot = false;
-    public LootBallEntity(BlockPos pos, BlockState state, boolean doubleLoot) {
+    protected float multiplier = 1.0F;
+    public LootBallEntity(BlockPos pos, BlockState state, float multiplier) {
         super(LOOT_BALL_ENTITY, pos, state);
-        this.doubleLoot = doubleLoot;
+        this.multiplier = multiplier;
     }
 
     public LootBallEntity(BlockPos pos, BlockState state) {
@@ -66,23 +66,20 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         this.lootTableSeed = seed;
         this.markDirty();
     }
-    protected boolean deserializeLootTable(NbtCompound nbt) {
+    protected void deserializeLootTable(NbtCompound nbt) {
         if (nbt.contains(LOOT_TABLE_KEY, NbtElement.STRING_TYPE)) {
             this.lootTableId = new Identifier(nbt.getString(LOOT_TABLE_KEY));
             this.lootTableSeed = nbt.getLong(LOOT_TABLE_SEED_KEY);
-            return true;
         }
-        return false;
     }
-    protected boolean serializeLootTable(NbtCompound nbt) {
+    protected void serializeLootTable(NbtCompound nbt) {
         if (this.lootTableId == null) {
-            return false;
+            return;
         }
         nbt.putString(LOOT_TABLE_KEY, this.lootTableId.toString());
         if (this.lootTableSeed != 0L) {
             nbt.putLong(LOOT_TABLE_SEED_KEY, this.lootTableSeed);
         }
-        return true;
     }
     public void addOpener(UUID uuid) {
         this.openers.add(uuid);
@@ -91,9 +88,9 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     public boolean isOpener(UUID uuid) {
         return this.openers.contains(uuid);
     }
-    protected boolean serializeOpeners(NbtCompound nbt) {
+    protected void serializeOpeners(NbtCompound nbt) {
         if (this.openers.isEmpty()) {
-            return false;
+            return;
         }
         StringBuilder saveString = new StringBuilder();
         for (UUID opener:
@@ -105,20 +102,16 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
             }
         }
         nbt.putString(OPENERS_KEY, saveString.toString());
-        return true;
     }
-    protected boolean deserializeOpeners(NbtCompound nbt) {
+    protected void deserializeOpeners(NbtCompound nbt) {
         if (nbt.contains(OPENERS_KEY, NbtElement.STRING_TYPE)) {
             String[] uuidStrings = nbt.getString(OPENERS_KEY).split(",");
             for (String strUUID:
                  uuidStrings) {
                 this.addOpener(UUID.fromString(strUUID));
             }
-            return true;
         }
-        return false;
     }
-
     public void setUses(int uses) {
         if (!this.infinite) {
             this.uses = uses;
@@ -128,9 +121,7 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     public int getUses() {
         return this.uses;
     }
-
-    public boolean hasDoubleLoot() { return this.doubleLoot; }
-
+    public float getMultiplier() { return this.multiplier; }
     @Override
     public void checkLootInteraction(@Nullable PlayerEntity player) {
         if (this.lootTableId != null && this.world.getServer() != null) {
@@ -147,12 +138,10 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
             this.markDirty();
         }
     }
-
     @Override
     public DefaultedList<ItemStack> getItems() {
         return items;
     }
-
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
@@ -165,8 +154,8 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         if (nbt.contains(INFINITE_KEY, NbtElement.BYTE_TYPE)) {
             this.infinite = nbt.getBoolean(INFINITE_KEY);
         }
-        if (nbt.contains(DOUBLE_LOOT_KEY, NbtElement.BYTE_TYPE)) {
-            this.doubleLoot = nbt.getBoolean(DOUBLE_LOOT_KEY);
+        if (nbt.contains(MULTIPLIER_KEY, NbtElement.FLOAT_TYPE)) {
+            this.multiplier = nbt.getFloat(MULTIPLIER_KEY);
         }
     }
 
@@ -177,7 +166,7 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         this.serializeOpeners(nbt);
         nbt.putInt(USES_KEY, this.uses);
         nbt.putBoolean(INFINITE_KEY, this.infinite);
-        nbt.putBoolean(DOUBLE_LOOT_KEY, this.doubleLoot);
+        nbt.putFloat(MULTIPLIER_KEY, this.multiplier);
         super.writeNbt(nbt);
     }
 
@@ -202,4 +191,7 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         return false;
     }
 
+    public ItemStack copyStack(int slot) {
+        return this.items.get(slot).copy();
+    }
 }

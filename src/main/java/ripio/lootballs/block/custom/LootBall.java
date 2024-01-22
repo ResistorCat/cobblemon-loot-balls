@@ -1,5 +1,6 @@
 package ripio.lootballs.block.custom;
 
+import com.cobblemon.mod.common.CobblemonSounds;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,8 +16,10 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +41,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty HIDDEN = BooleanProperty.of("hidden");
     public static final BooleanProperty WAXED = BooleanProperty.of("waxed");
-    private boolean doubleLoot = false;
+    private float multiplier = 1.0F;
 
     public LootBall(Settings settings) {
         super(settings.nonOpaque().noBlockBreakParticles());
@@ -52,9 +55,9 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
 
     public BlockState getGenerationState(Random random, BlockPos pos, StructureWorldAccess world) {
         // 20% Chance to be hidden on generation
-        this.doubleLoot = false;
-        boolean hidden = (random.nextFloat() <= 0.2F);
-        if (hidden && LootBallsConfigs.NATURAL_DOUBLE_LOOT) this.doubleLoot = true;
+        this.multiplier = 1.0F;
+        boolean hidden = (random.nextFloat() <= LootBallsConfigs.HIDDEN_CHANCE);
+        if (hidden) this.multiplier = LootBallsConfigs.HIDDEN_MULTIPLIER;
         return this.getDefaultState()
                 .with(Properties.HORIZONTAL_FACING, Direction.fromHorizontal(random.nextInt(3)))
                 .with(HIDDEN, hidden)
@@ -93,7 +96,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
     public BlockEntity createBlockEntity(
             BlockPos pos,
             BlockState state) {
-        return new LootBallEntity(pos, state, this.doubleLoot);
+        return new LootBallEntity(pos, state, this.multiplier);
     }
 
     @Override
@@ -158,67 +161,102 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
             assert blockEntity != null;
             ItemStack handItem = player.getStackInHand(hand).copy();
 
-            if ( player.getStackInHand(hand).isEmpty() & player.isCreative() ) {
-                player.playSound(SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.PLAYERS, 0.4F, 1.0F);
-                world.setBlockState(pos, state.with(HIDDEN, !state.get(HIDDEN)));
-                player.sendMessage(Text.translatable("block.lootballs.loot_ball.visibility"), true);
-            } else if (player.isCreative() & handItem.isOf(Items.HONEYCOMB) & state.get(HIDDEN)) {
-                // Toggle waxed
-                Boolean isWaxed = !state.get(WAXED);
-                world.setBlockState(pos, state.with(WAXED, isWaxed));
-                SoundEvent waxSnd = isWaxed ? SoundEvents.ITEM_HONEYCOMB_WAX_ON : SoundEvents.ITEM_AXE_WAX_OFF;
-                player.playSound(waxSnd, SoundCategory.PLAYERS, 0.4F,1.0F);
-                String waxMsg = Text.translatable("block.lootballs.loot_ball.wax").getString() + (isWaxed ? "OFF" : "ON");
-                player.sendMessage(Text.of(waxMsg), true);
-            } else if (player.isCreative()) {
-                // Set loot to full stack in hand
-                player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 0.4F, 1.0F);
-                String lootMsg = Text.translatable("block.lootballs.loot_ball.set_loot").getString() + handItem.getCount() + " " + handItem.getItem().getName().getString();
-                player.sendMessage(Text.of(lootMsg), true);
-                blockEntity.setStack(0, handItem);
-            } else {
-                if (!player.isCreative() & !player.isSpectator() & !blockEntity.getStack(0).isEmpty()) {
-                    // Check if per player lootballs is true
-                    boolean canOpen = true;
+            // Game mode check
+            if (player.isCreative()) {
+                /// Creative mode
+
+                if (handItem.isEmpty()) {
+                    // Toggle visibility (empty hand)
+                    world.setBlockState(pos, state.with(HIDDEN, !state.get(HIDDEN)));
+                    player.sendMessage(Text.translatable("block.lootballs.loot_ball.visibility").formatted(Formatting.AQUA), true);
+                    player.playSound(SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.BLOCKS, 0.5F, 1.0F);
+                } else if (handItem.isOf(Items.HONEYCOMB)) {
+                    // Toggle sparks (wax with honeycomb)
+                    boolean isWaxed = state.get(WAXED);
+                    SoundEvent waxSound = isWaxed ? SoundEvents.ITEM_AXE_WAX_OFF : SoundEvents.ITEM_HONEYCOMB_WAX_ON;
+                    MutableText waxMsg = Text
+                            .translatable("block.lootballs.loot_ball.wax")
+                            .formatted(Formatting.AQUA)
+                            .append(isWaxed ? Text.literal("ON").formatted(Formatting.GREEN) : Text.literal("OFF").formatted(Formatting.RED));
+
+                    world.setBlockState(pos, state.with(WAXED, !isWaxed));
+                    player.sendMessage(waxMsg, true);
+                    player.playSound(waxSound, SoundCategory.BLOCKS, 0.5F, 1.0F);
+                } else {
+                    // Set Loot Ball loot (stack in hand)
+                    MutableText lootMsg = Text
+                            .translatable("block.lootballs.loot_ball.set_loot")
+                            .formatted(Formatting.AQUA)
+                            .append(Text.literal(String.valueOf(handItem.getCount())).formatted(Formatting.YELLOW))
+                            .append(Text.literal(" "))
+                            .append(Text.literal(handItem.getName().getString()).formatted(Formatting.GREEN)
+                            );
+
+                    blockEntity.setStack(0, handItem);
+                    player.sendMessage(lootMsg, true);
+                    player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 0.5F, 1.0F);
+                }
+
+            } else if (!player.isCreative() && !player.isSpectator()) {
+                /// Survival, adventure and hardcore mode
+
+                if (!blockEntity.getStack(0).isEmpty()) {
+                    // Loot ball has items to retrieve
+
+                    // STEP 1: Check if player already opened this loot (multiplayer).
+                    boolean alreadyOpen = false;
                     if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
                         if (blockEntity.isOpener(player.getUuid())) {
-                            canOpen = false;
-                            player.sendMessage(Text.translatable("block.lootballs.loot_ball.already_open"), true);
+                            alreadyOpen = true;
+                            player.sendMessage(
+                                    Text.translatable("block.lootballs.loot_ball.already_open")
+                                            .formatted(Formatting.RED)
+                            );
                         }
                     }
 
-                    if (canOpen) {
-                        // Open loot
-                        player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.PLAYERS, 0.5F, 1.0F);
-                        ItemStack lootItem = blockEntity.getStack(0);
-                        blockEntity.setStack(0,lootItem.copy()); // Workaround for re-stock the loot ball.
-                        String lootMsg = Text.translatable("block.lootballs.loot_ball.open").getString() + lootItem.getCount() + " " + lootItem.getItem().getName().getString();
-                        if (blockEntity.hasDoubleLoot()) {
-                            lootItem = lootItem.copyWithCount(lootItem.getCount() * 2);
-                            lootMsg = Text.translatable("block.lootballs.loot_ball.double_loot").getString() + Text.translatable("block.lootballs.loot_ball.open").getString() + lootItem.getCount() + " " + lootItem.getItem().getName().getString();
+                    // STEP 2: Loot
+                    if (!alreadyOpen) {
+                        float multiplier = blockEntity.getMultiplier();
+                        ItemStack lootStack = blockEntity.copyStack(0);
+                        MutableText lootMsg = Text.literal("");
+
+                        if (multiplier > 1.0F) {
+                            lootStack = lootStack.copyWithCount((int) (lootStack.getCount() * multiplier));
+                            lootMsg = lootMsg
+                                    .append(Text.translatable("block.lootballs.loot_ball.bonus_loot").formatted(Formatting.LIGHT_PURPLE))
+                                    .append(Text.literal(" (").formatted(Formatting.WHITE))
+                                    .append(Text.literal(String.valueOf(multiplier)).formatted(Formatting.GREEN)
+                                    .append(Text.literal("): ").formatted(Formatting.WHITE)));
                         }
-                        player.sendMessage(Text.of(lootMsg),true);
-                        player.getInventory().offerOrDrop(lootItem);
+                        lootMsg = lootMsg
+                                .append(Text.translatable("block.lootballs.loot_ball.open").formatted(Formatting.AQUA))
+                                .append(Text.literal(String.valueOf(lootStack.getCount())).formatted(Formatting.YELLOW))
+                                .append(Text.literal(" "))
+                                .append(Text.literal(lootStack.getName().getString())).formatted(Formatting.GREEN);
+
+                        player.getInventory().offerOrDrop(lootStack);
                         player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);
-                        blockEntity.setUses(blockEntity.getUses() - 1);
 
                         if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
                             blockEntity.addOpener(player.getUuid());
                             if (!LootBallsConfigs.IGNORE_PER_PLAYER_LOOTBALLS_USES) {
-                                if (blockEntity.getUses() <= 0) {
-                                    world.removeBlock(pos, false);
-                                }
+                                blockEntity.setUses(blockEntity.getUses() - 1);
                             }
                         } else {
-                            if (blockEntity.getUses() <= 0) {
-                                world.removeBlock(pos, false);
-                            }
+                            blockEntity.setUses(blockEntity.getUses() - 1);
                         }
 
-                    }
+                        if (blockEntity.getUses() <= 0) {
+                            world.removeBlock(pos, false);
+                        }
 
+                        player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.BLOCKS, 0.7F, 1.0F);
+                        player.sendMessage(lootMsg, true);
+                    }
                 }
             }
+
         }
         return ActionResult.SUCCESS;
     }

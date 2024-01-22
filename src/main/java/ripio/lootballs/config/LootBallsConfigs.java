@@ -10,7 +10,8 @@ public class LootBallsConfigs {
     public static boolean PER_PLAYER_LOOTBALLS;
     public static int USES_PER_LOOTBALL;
     public static boolean IGNORE_PER_PLAYER_LOOTBALLS_USES;
-    public static boolean NATURAL_DOUBLE_LOOT;
+    public static float HIDDEN_MULTIPLIER;
+    public static float HIDDEN_CHANCE;
 
     public static void registerConfigs() {
         configs = new LootBallsConfigProvider();
@@ -26,7 +27,8 @@ public class LootBallsConfigs {
         configs.addKeyValuePair(new Pair<>("perPlayerLootballs", false), "(boolean) It determines if Loot Balls can be obtained by every player in the server (and it won't dissapear when used). Loot will be randomized for every player if a loot table is set.");
         configs.addKeyValuePair(new Pair<>("usesPerLootball", 1), "(integer) It determines the number of uses each naturally generated loot ball will have. Doesn't affect creative loot balls.");
         configs.addKeyValuePair(new Pair<>("ignorePerPlayerLootballsUses", true), "(boolean) When perPlayerLootballs is true, it determines if the number of uses of a ball will be ignored or not.");
-        configs.addKeyValuePair(new Pair<>("naturalDoubleLoot", true), "(boolean) It determines if hidden natural loot balls will grant double loot.");
+        configs.addKeyValuePair(new Pair<>("hiddenMultiplier", 2.0F), "(float) It determines the loot multiplier of invisible natural loot balls.");
+        configs.addKeyValuePair(new Pair<>("hiddenChance", 0.2F), "(float) It determines the chance of a natural loot ball to be invisible.");
     }
 
     private static void assignConfigs() {
@@ -34,7 +36,8 @@ public class LootBallsConfigs {
         PER_PLAYER_LOOTBALLS = CONFIG.getOrDefault("perPlayerLootballs", false);
         USES_PER_LOOTBALL = CONFIG.getOrDefault("usesPerLootball", 1);
         IGNORE_PER_PLAYER_LOOTBALLS_USES = CONFIG.getOrDefault("ignorePerPlayerLootballsUses", true);
-        NATURAL_DOUBLE_LOOT = CONFIG.getOrDefault("naturalDoubleLoot", true);
+        HIDDEN_MULTIPLIER = (float) CONFIG.getOrDefault("hiddenMultiplier", 2.0F);
+        HIDDEN_CHANCE = (float) CONFIG.getOrDefault("hiddenChance", 0.2F);
 
         Lootballs.LOGGER.info(Lootballs.MOD_ID + ": All " + configs.getConfigsList().size() + " have been set properly");
     }
