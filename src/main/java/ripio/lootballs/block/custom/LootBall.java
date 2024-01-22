@@ -172,23 +172,24 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                     // Toggle sparks (wax with honeycomb)
                     boolean isWaxed = state.get(WAXED);
                     SoundEvent waxSound = isWaxed ? SoundEvents.ITEM_AXE_WAX_OFF : SoundEvents.ITEM_HONEYCOMB_WAX_ON;
-                    MutableText waxMsg = Text
-                            .translatable("block.lootballs.loot_ball.wax")
-                            .formatted(Formatting.AQUA)
-                            .append(isWaxed ? Text.literal("ON").formatted(Formatting.GREEN) : Text.literal("OFF").formatted(Formatting.RED));
+                    MutableText waxMsg = Text.literal("")
+                            .append( Text.translatable("block.lootballs.loot_ball.wax").formatted(Formatting.AQUA) )
+                            .append(isWaxed ?
+                                    Text.literal("ON").formatted(Formatting.GREEN).formatted(Formatting.BOLD)
+                                    :
+                                    Text.literal("OFF").formatted(Formatting.RED).formatted(Formatting.BOLD)
+                            );
 
                     world.setBlockState(pos, state.with(WAXED, !isWaxed));
                     player.sendMessage(waxMsg, true);
                     player.playSound(waxSound, SoundCategory.BLOCKS, 0.5F, 1.0F);
                 } else {
                     // Set Loot Ball loot (stack in hand)
-                    MutableText lootMsg = Text
-                            .translatable("block.lootballs.loot_ball.set_loot")
-                            .formatted(Formatting.AQUA)
-                            .append(Text.literal(String.valueOf(handItem.getCount())).formatted(Formatting.YELLOW))
-                            .append(Text.literal(" "))
-                            .append(Text.literal(handItem.getName().getString()).formatted(Formatting.GREEN)
-                            );
+                    MutableText lootMsg = Text.literal("")
+                            .append( Text.translatable("block.lootballs.loot_ball.set_loot").formatted(Formatting.AQUA) )
+                            .append( Text.literal(String.valueOf(handItem.getCount())).formatted(Formatting.YELLOW) )
+                            .append( Text.literal(" ") )
+                            .append( Text.literal(handItem.getName().getString()).formatted(Formatting.GREEN).formatted(Formatting.BOLD) );
 
                     blockEntity.setStack(0, handItem);
                     player.sendMessage(lootMsg, true);
@@ -206,10 +207,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                     if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
                         if (blockEntity.isOpener(player.getUuid())) {
                             alreadyOpen = true;
-                            player.sendMessage(
-                                    Text.translatable("block.lootballs.loot_ball.already_open")
-                                            .formatted(Formatting.RED)
-                            );
+                            player.sendMessage( Text.translatable("block.lootballs.loot_ball.already_open").formatted(Formatting.RED).formatted(Formatting.BOLD) );
                         }
                     }
 
@@ -222,16 +220,16 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                         if (multiplier > 1.0F) {
                             lootStack = lootStack.copyWithCount((int) (lootStack.getCount() * multiplier));
                             lootMsg = lootMsg
-                                    .append(Text.translatable("block.lootballs.loot_ball.bonus_loot").formatted(Formatting.LIGHT_PURPLE))
-                                    .append(Text.literal(" (").formatted(Formatting.WHITE))
-                                    .append(Text.literal(String.valueOf(multiplier)).formatted(Formatting.GREEN)
-                                    .append(Text.literal("): ").formatted(Formatting.WHITE)));
+                                    .append( Text.translatable("block.lootballs.loot_ball.bonus_loot").formatted(Formatting.LIGHT_PURPLE) )
+                                    .append( Text.literal(" [").formatted(Formatting.WHITE) )
+                                    .append( Text.literal(String.valueOf(multiplier).formatted(Formatting.GREEN)).formatted(Formatting.BOLD) )
+                                    .append( Text.literal("]: ").formatted(Formatting.WHITE) );
                         }
                         lootMsg = lootMsg
-                                .append(Text.translatable("block.lootballs.loot_ball.open").formatted(Formatting.AQUA))
-                                .append(Text.literal(String.valueOf(lootStack.getCount())).formatted(Formatting.YELLOW))
-                                .append(Text.literal(" "))
-                                .append(Text.literal(lootStack.getName().getString())).formatted(Formatting.GREEN);
+                                .append( Text.translatable("block.lootballs.loot_ball.open").formatted(Formatting.AQUA) )
+                                .append( Text.literal(String.valueOf(lootStack.getCount())).formatted(Formatting.YELLOW) )
+                                .append( Text.literal(" ") )
+                                .append( Text.literal(lootStack.getName().getString()).formatted(Formatting.GREEN).formatted(Formatting.BOLD) );
 
                         player.getInventory().offerOrDrop(lootStack);
                         player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);

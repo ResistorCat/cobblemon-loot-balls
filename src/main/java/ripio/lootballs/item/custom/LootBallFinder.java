@@ -13,6 +13,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +39,7 @@ public class LootBallFinder extends Item {
             BlockPos blockPos = searchForLootBall(origin, world);
             if (blockPos == null) {
                 // Nothing found
-                user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.not_found"), true);
+                user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.not_found").formatted(Formatting.GRAY), true);
                 user.playSound(CobblemonSounds.PC_OFF, SoundCategory.PLAYERS, 0.5F, 1.0F);
             } else {
                 // Found a lootball
@@ -53,17 +54,17 @@ public class LootBallFinder extends Item {
                     world.playSoundAtBlockCenter(blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F, true);
 
                     user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.85F, 1.0F);
-                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.very_near"), true);
+                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.very_near").formatted(Formatting.LIGHT_PURPLE), true);
                 } else if (distance < 256) {
                     user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.55F, 1.0F);
-                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.near"), true);
+                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.near").formatted(Formatting.YELLOW), true);
                 } else {
                     user.playSound(SoundEvents.BLOCK_AMETHYST_BLOCK_RESONATE, SoundCategory.PLAYERS, 0.35F, 1.0F);
-                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.chunks"), true);
+                    user.sendMessage(Text.translatable("item.lootballs.loot_ball_finder.chunks").formatted(Formatting.AQUA), true);
                 }
             }
-            // Set cooldown to 8 seconds
-            user.getItemCooldownManager().set(this, 160);
+            // Set cooldown to 5 seconds
+            user.getItemCooldownManager().set(this, 100);
             this.onCooldown = true;
         }
 
@@ -115,6 +116,6 @@ public class LootBallFinder extends Item {
 
     @Override
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(Text.translatable("item.lootballs.loot_ball_finder.tooltip"));
+        tooltip.add(Text.translatable("item.lootballs.loot_ball_finder.tooltip").formatted(Formatting.YELLOW));
     }
 }
