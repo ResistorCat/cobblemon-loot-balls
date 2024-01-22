@@ -59,7 +59,7 @@ public class LootBallsLanguageProvider extends FabricLanguageProvider {
             translationBuilder.add(LootBallsStats.OPEN_LOOT_BALL_STAT, "Loot balls opened");
 
             // Sounds
-            translationBuilder.add("subtitles.lootballs.lootball_open", "Loot ball open fanfare");
+            translationBuilder.add("stat.lootballs.open_loot_ball", "Loot ball open fanfare");
 
             // Gamerules
             translationBuilder.add("gamerule.doLootBallFishing", "Allow loot ball fishing");
@@ -71,7 +71,7 @@ public class LootBallsLanguageProvider extends FabricLanguageProvider {
             translationBuilder.add("block.lootballs.loot_ball.set_loot", "Loot ball loot was set to: ");
             translationBuilder.add("block.lootballs.loot_ball.already_open", "You already opened this loot ball!");
             translationBuilder.add("block.lootballs.loot_ball.open", "You found: ");
-            translationBuilder.add("block.lootballs.loot_ball.double_loot", "Double loot! - ");
+            translationBuilder.add("block.lootballs.loot_ball.bonus_loot", "BONUS LOOT!");
 
             translationBuilder.add("item.lootballs.loot_ball_finder.tooltip", "Right click to search for HIDDEN loot balls within a 2-chunk radius");
             translationBuilder.add("item.lootballs.loot_ball_finder.not_found", "No hidden loot balls found!");
