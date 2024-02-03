@@ -7,10 +7,15 @@
     "#minecraft:terracotta",
     "#minecraft:iron_ores",
     "#minecraft:copper_ores",
-    "#minecraft:snow",
+    "#minecraft:diamond_ores",
+    "#minecraft:emerald_ores",
+    "#minecraft:gold_ores",
+    "#minecraft:coal_ores",
     "#minecraft:ice",
     "#minecraft:base_stone_nether",
     "#minecraft:soul_fire_base_blocks",
+    "#minecraft:deepslate_ore_replaceables",
+    "#minecraft:wool",
     "minecraft:gravel",
     "minecraft:suspicious_gravel",
     "minecraft:sandstone",
@@ -19,6 +24,8 @@
     "minecraft:end_stone",
     "minecraft:end_stone_bricks",
     "minecraft:purpur_block",
-    "minecraft:netherrack"
+    "minecraft:netherrack",
+    "minecraft:bookshelf",
+    "minecraft:snow_block"
   ]
 }
