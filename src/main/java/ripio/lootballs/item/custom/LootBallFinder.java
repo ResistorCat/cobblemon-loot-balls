@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import ripio.lootballs.block.custom.LootBall;
+import ripio.lootballs.block.custom.LootBallBlock;
 import ripio.lootballs.datagen.LootBallsBlockTagProvider;
 
 import java.util.List;
@@ -93,7 +93,7 @@ public class LootBallFinder extends Item {
 
     private boolean isLootBall(BlockState state) {
         if (state.isIn(LootBallsBlockTagProvider.LOOT_BALLS_BLOCKS)){
-            return state.get(LootBall.HIDDEN);
+            return state.get(LootBallBlock.HIDDEN);
         }
         return false;
     }

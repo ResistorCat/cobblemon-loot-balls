@@ -7,9 +7,10 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import ripio.lootballs.Lootballs;
+import ripio.lootballs.LootBalls;
 
 import static ripio.lootballs.block.LootBallsBlocks.*;
+import static ripio.lootballs.item.LootBallsItems.LOOT_BALL_FINDER;
 
 public class LootBallsItemGroups {
     public static final ItemGroup LOOT_BALLS_GROUP = FabricItemGroup.builder()
@@ -48,14 +49,15 @@ public class LootBallsItemGroups {
                 entries.add(new ItemStack(TIMER_LOOT_BALL));
                 entries.add(new ItemStack(ULTRA_LOOT_BALL));
                 entries.add(new ItemStack(VERDANT_LOOT_BALL));
+                entries.add(new ItemStack(LOOT_BALL_FINDER));
             })
             .build();
 
     public static void registerItemGroups() {
-        Lootballs.LOGGER.info("Registering item groups for " + Lootballs.MOD_ID);
+        LootBalls.LOGGER.info("Registering item groups for " + LootBalls.MOD_ID);
         Registry.register(
                 Registries.ITEM_GROUP,
-                new Identifier(Lootballs.MOD_ID, "lootballs_group"),
+                new Identifier(LootBalls.MOD_ID, "lootballs_group"),
                 LOOT_BALLS_GROUP
         );
     }
