@@ -4,25 +4,32 @@
 [Official Modrinth Site](https://modrinth.com/mod/cobblemon-loot-balls)
 <!-- modrinth_exclude.end -->
 
-This cobblemon sidemod adds the famous pokéballs with loot from the original games to cobblemon. (**Cobblemon mod is required**)
+This cobblemon sidemod adds the famous pokéballs with loot from the original games to cobblemon.
+
+#### Dependencies (b1.1+)
+- **Cobblemon**
+- **oωo (owo-lib)**
+- _Optional: Modmenu_
 
 ## Features
 ### Loot Balls
-Loot Balls can contain up to a stack of an item inside. Objects are obtained by **right clicking on the pokeball**.
-
-Loot balls can be found everywhere in the world, but some loot balls are only obtainable under certain conditions. To see more details, check the [github docs](https://github.com/ResistorCat/cobblemon-loot-balls/tree/main/docs/Features.md).
+Loot balls can be found everywhere in the world and from different sources; Natural generation, fishing and archaeology. Some loot balls are only obtainable under certain conditions. To see more details, check the [GitHub docs](https://github.com/ResistorCat/cobblemon-loot-balls/tree/main/docs/Features.md).
 
 > Some loot balls will spawn invisibly, but they emit tiny sparks, so pay attention!
-### Mapmakers
-- To set-up a loot, you need to be in **creative mode** and **right-click on the loot ball with the item or stack of an item in your hand**.
-- Loot Balls can be invisible. In **creative mode**, right-click on the loot ball with your **empty hand**.
-- Players have an **"Loot Balls opened" player statistic** that increases each time the player opens a loot ball.
-- **Invisible** Loot Balls **emit tiny sparks that reveal their position**. You can **wax them with honeycomb** to prevent this (**You can only do this with invisible loot balls**). To undo this, **right-click** with honeycomb again.
-- Loot Balls can be **waterlogged**.
+
+### Loot Ball Finder
+You can craft a special item (similar to a dowsing-machine from original games) to search for hidden lootballs.
+Check the loot ball finder section of the [features docs](https://github.com/ResistorCat/cobblemon-loot-balls/tree/main/docs/Features.md) to see more details.
+
+## Mapmakers
+To learn how to use loot balls in your map, please read the mapmaking section (creative mode) of [loot balls docs](https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/docs/Lootballs.md).
+
+## Configs
+Check the [configs docs](https://github.com/ResistorCat/cobblemon-loot-balls/tree/main/docs/Configs.md) to learn more about the configurations for the mod (compatible with **Modmenu** mod).
 
 ## Planned features
-- Implement loot ball fishing, archaeology loot balls and chests with loot balls.
+- Implement loot balls in chests loot tables.
 - Add animations and decoration for loot ball opening.
 
 ## Bugs and feedback
-Please report any bugs or feedback on the github [issues](https://github.com/ResistorCat/cobblemon-loot-balls/issues) page.
+Please report any bugs or feedback on the [GitHub issues](https://github.com/ResistorCat/cobblemon-loot-balls/issues) page.
