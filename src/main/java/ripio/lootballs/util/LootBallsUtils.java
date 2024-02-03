@@ -133,7 +133,7 @@ public class LootBallsUtils {
     }
 
     private static Identifier filteredLootBall(Identifier[] identifiers, RegistryEntry<Biome> biome, Random random) {
-        ArrayList<Identifier> filteredLoots = new ArrayList<Identifier>();
+        ArrayList<Identifier> filteredLoots = new ArrayList<>();
 
         // Filter Biome
         for (Identifier identifier : identifiers) {
