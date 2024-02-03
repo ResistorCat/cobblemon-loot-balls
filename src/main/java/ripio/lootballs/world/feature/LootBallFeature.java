@@ -12,12 +12,14 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
-import ripio.lootballs.block.custom.LootBall;
+import ripio.lootballs.LootBalls;
+import ripio.lootballs.block.custom.LootBallBlock;
 import ripio.lootballs.block.entity.LootBallEntity;
-import ripio.lootballs.config.LootBallsConfigs;
 import ripio.lootballs.datagen.LootBallsBlockTagProvider;
 import ripio.lootballs.util.LootBallsUtils;
 import ripio.lootballs.world.LootBallsGamerules;
+
+import java.util.List;
 
 public class LootBallFeature extends Feature<LootBallFeatureConfig> {
     public LootBallFeature(Codec<LootBallFeatureConfig> configCodec){
@@ -37,7 +39,7 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
             // Check if Gamerule is false
             if (!world.getServer().getGameRules().getBoolean(LootBallsGamerules.GENERATE_LOOT_BALLS)) return false;
             // Decide lootball attempts for this chunk
-            int placements = random.nextBetween(0, LootBallsConfigs.MAX_LOOTBALLS_PER_CHUNK);
+            int placements = random.nextBetween(0, LootBalls.CONFIG.maxLootBallsPerChunk());
             // Place loot balls
             for (int i = 0; i < placements; i++) {
                 placeLootBall(world, origin, random, config);
@@ -57,22 +59,22 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
         Identifier lootTableId = LootBallsUtils.getLootBallLootTable(blockId);
         if (lootTableId == null) return;
 
-        // Get LootBall BiomeTags and BlockTags
+        // Get LootBall BiomeTags, BlockTags, HeightRange
         TagKey<Biome> biomeTag = LootBallsUtils.getLootBallBiomeTags(blockId, world.getBiome(origin));
         TagKey<Block>[] blockTags = LootBallsUtils.getLootBallBlockTags(blockId);
+        List<Integer> heightRange = LootBallsUtils.getLootBallHeightRange(blockId, world);
 
         // Get a random position within chunk
         BlockPos testPos = origin.add(
                 random.nextBetween(0, 15),
-                random.nextBetween(world.getBottomY(), world.getTopY()),
+                random.nextBetween(heightRange.get(0), heightRange.get(1)),
                 random.nextBetween(0, 15)
         );
         BlockState floorState;
-
-        for (int y = testPos.getY(); y > world.getBottomY(); y--){
+        for (int y = testPos.getY(); y > heightRange.get(0); y--){
             testPos = testPos.down();
             // Check if out of range
-            if (testPos.getY() >= world.getTopY()) return;
+            if (testPos.getY() <= heightRange.get(0) || testPos.getY() >= heightRange.get(1)) return;
             // Check if not in loot ball biome
             if (!world.getBiome(testPos).isIn(biomeTag)) continue;
 
@@ -82,7 +84,7 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
                 // Valid floor; check valid position
                 if (world.getBlockState(testPos).isIn(LootBallsBlockTagProvider.LOOT_BALLS_REPLACEABLES)) {
                     // Get Loot Ball State
-                    BlockState ballState = ((LootBall) Registries.BLOCK.get(blockId)).getGenerationState(random, testPos, world);
+                    BlockState ballState = ((LootBallBlock) Registries.BLOCK.get(blockId)).getGenerationState(random, testPos, world);
                     if (ballState == null) throw new IllegalStateException(blockId + "could could not be parsed to a valid block identifier!");
                     // Place Loot Ball
                     world.setBlockState(testPos, ballState, Block.NOTIFY_LISTENERS);
