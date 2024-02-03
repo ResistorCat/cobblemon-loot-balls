@@ -1,6 +1,6 @@
 package ripio.lootballs.world.gen;
 
-import ripio.lootballs.Lootballs;
+import ripio.lootballs.LootBalls;
 
 public class LootBallsWorldGeneration {
     public static void generateLootBallsWorldGen() {
@@ -8,7 +8,7 @@ public class LootBallsWorldGeneration {
     }
 
     public static void registerWorldGen() {
-        Lootballs.LOGGER.info("Registering world generation for " + Lootballs.MOD_ID);
+        LootBalls.LOGGER.info("Registering world generation for " + LootBalls.MOD_ID);
         generateLootBallsWorldGen();
     }
 }
