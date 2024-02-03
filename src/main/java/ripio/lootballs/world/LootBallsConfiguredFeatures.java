@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
-import ripio.lootballs.Lootballs;
+import ripio.lootballs.LootBalls;
 import ripio.lootballs.world.feature.LootBallFeatureConfig;
 
 import static ripio.lootballs.world.LootBallsFeatures.LOOT_BALL_FEATURE;
@@ -27,7 +27,7 @@ public class LootBallsConfiguredFeatures {
     }
 
     public static RegistryKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier(Lootballs.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, new Identifier(LootBalls.MOD_ID, name));
     }
 
     private static <FC extends FeatureConfig, F extends Feature<FC>> void register(Registerable<ConfiguredFeature<?, ?>> context,

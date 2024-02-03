@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 import net.minecraft.world.gen.placementmodifier.PlacementModifier;
-import ripio.lootballs.Lootballs;
+import ripio.lootballs.LootBalls;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class LootBallsPlacedFeatures {
 
     }
     public static RegistryKey<PlacedFeature> registerKey(String name) {
-        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(Lootballs.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, new Identifier(LootBalls.MOD_ID, name));
     }
 
     private static void register(Registerable<PlacedFeature> context, RegistryKey<PlacedFeature> key, RegistryEntry<ConfiguredFeature<?, ?>> configuration,
