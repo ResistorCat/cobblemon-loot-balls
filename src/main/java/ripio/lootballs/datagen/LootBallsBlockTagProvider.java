@@ -8,26 +8,17 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import ripio.lootballs.Lootballs;
 import ripio.lootballs.block.LootBallsBlocks;
 
 import java.util.concurrent.CompletableFuture;
 
-public class LootBallsBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    public static final TagKey<Block> LOOT_BALLS_BASE_BLOCKS = TagKey.of(
-            RegistryKeys.BLOCK,
-            new Identifier(Lootballs.MOD_ID, "loot_balls_base_blocks")
-    );
+import static ripio.lootballs.LootBalls.lootBallsResource;
 
-    public static final TagKey<Block> LOOT_BALLS_REPLACEABLES = TagKey.of(
-            RegistryKeys.BLOCK,
-            new Identifier(Lootballs.MOD_ID, "loot_balls_replaceables")
-    );
-    public static final TagKey<Block> LOOT_BALLS_BLOCKS = TagKey.of(
-            RegistryKeys.BLOCK,
-            new Identifier(Lootballs.MOD_ID, "loot_balls_blocks")
-    );
+public class LootBallsBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+    public static final TagKey<Block> LOOT_BALLS_BASE_BLOCKS = of("loot_balls_base_blocks");
+    public static final TagKey<Block> LOOT_BALLS_REPLACEABLES = of("loot_balls_replaceables");
+    public static final TagKey<Block> LOOT_BALLS_BLOCKS = of("loot_balls_blocks");
+    public static final TagKey<Block> LUXURY_LOOT_BALL_BASE_BLOCKS = of("luxury_loot_ball_base_blocks");
 
     public LootBallsBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
@@ -42,10 +33,15 @@ public class LootBallsBlockTagProvider extends FabricTagProvider.BlockTagProvide
                 .forceAddTag(BlockTags.TERRACOTTA)
                 .forceAddTag(BlockTags.IRON_ORES)
                 .forceAddTag(BlockTags.COPPER_ORES)
-                .forceAddTag(BlockTags.SNOW)
+                .forceAddTag(BlockTags.DIAMOND_ORES)
+                .forceAddTag(BlockTags.EMERALD_ORES)
+                .forceAddTag(BlockTags.GOLD_ORES)
+                .forceAddTag(BlockTags.COAL_ORES)
                 .forceAddTag(BlockTags.ICE)
                 .forceAddTag(BlockTags.BASE_STONE_NETHER)
                 .forceAddTag(BlockTags.SOUL_FIRE_BASE_BLOCKS)
+                .forceAddTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
+                .forceAddTag(BlockTags.WOOL)
                 .add(Blocks.GRAVEL)
                 .add(Blocks.SUSPICIOUS_GRAVEL)
                 .add(Blocks.SANDSTONE)
@@ -54,7 +50,9 @@ public class LootBallsBlockTagProvider extends FabricTagProvider.BlockTagProvide
                 .add(Blocks.END_STONE)
                 .add(Blocks.END_STONE_BRICKS)
                 .add(Blocks.PURPUR_BLOCK)
-                .add(Blocks.NETHERRACK);
+                .add(Blocks.NETHERRACK)
+                .add(Blocks.BOOKSHELF)
+                .add(Blocks.SNOW_BLOCK);
 
         getOrCreateTagBuilder(LOOT_BALLS_REPLACEABLES)
                 .forceAddTag(BlockTags.REPLACEABLE_BY_TREES)
@@ -101,6 +99,14 @@ public class LootBallsBlockTagProvider extends FabricTagProvider.BlockTagProvide
                 .add(LootBallsBlocks.TIMER_LOOT_BALL)
                 .add(LootBallsBlocks.ULTRA_LOOT_BALL)
                 .add(LootBallsBlocks.VERDANT_LOOT_BALL);
+
+        getOrCreateTagBuilder(LUXURY_LOOT_BALL_BASE_BLOCKS)
+                .add(Blocks.AMETHYST_BLOCK)
+                .add(Blocks.AMETHYST_CLUSTER);
+    }
+
+    private static TagKey<Block> of(String path) {
+        return TagKey.of(RegistryKeys.BLOCK, lootBallsResource(path));
     }
 
 }
