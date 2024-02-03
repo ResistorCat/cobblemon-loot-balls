@@ -6,7 +6,7 @@
   - **Heal**: **Naturally generated** in biomes with **villages**.
   - **Dive**: **Naturally generated** in oceans at the bottom and by fishing in deep ocean biomes.
   - **Repeat**: Obtainable only by brushing suspicious sand in desert pyramids and wells.
-  - **Luxury**: **Naturally generated** in geodes and obtainable by breaking Budding Amethyst.
+  - **Luxury**: Obtainable only by breaking Budding Amethyst.
 - Added config file in ```config``` folder with 10 new configurations.
   - From now, you can configure loot balls to allow loot for multiple players (works similar to Lootr mod).
   - You can tweak the **max amount of loot balls generated per chunk**.
