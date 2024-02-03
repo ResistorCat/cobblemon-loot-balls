@@ -9,55 +9,55 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import ripio.lootballs.block.custom.LootBall;
-import ripio.lootballs.Lootballs;
+import ripio.lootballs.LootBalls;
+import ripio.lootballs.block.custom.LootBallBlock;
 
 public class LootBallsBlocks {
     // Loot Balls
-    public static final LootBall AZURE_LOOT_BALL = (LootBall) registerBlock("azure_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall BEAST_LOOT_BALL = (LootBall) registerBlock("beast_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall CHERISH_LOOT_BALL = (LootBall) registerBlock("cherish_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall CITRINE_LOOT_BALL = (LootBall) registerBlock("citrine_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall DIVE_LOOT_BALL = (LootBall) registerBlock("dive_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall DREAM_LOOT_BALL = (LootBall) registerBlock("dream_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall DUSK_LOOT_BALL = (LootBall) registerBlock("dusk_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall FAST_LOOT_BALL = (LootBall) registerBlock("fast_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall FRIEND_LOOT_BALL = (LootBall) registerBlock("friend_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall GREAT_LOOT_BALL = (LootBall) registerBlock("great_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall HEAL_LOOT_BALL = (LootBall) registerBlock("heal_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall HEAVY_LOOT_BALL = (LootBall) registerBlock("heavy_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall LEVEL_LOOT_BALL = (LootBall) registerBlock("level_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall LOVE_LOOT_BALL = (LootBall) registerBlock("love_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall LURE_LOOT_BALL = (LootBall) registerBlock("lure_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall LUXURY_LOOT_BALL = (LootBall) registerBlock("luxury_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall MASTER_LOOT_BALL = (LootBall) registerBlock("master_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall MOON_LOOT_BALL = (LootBall) registerBlock("moon_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall NEST_LOOT_BALL = (LootBall) registerBlock("nest_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall NET_LOOT_BALL = (LootBall) registerBlock("net_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall PARK_LOOT_BALL = (LootBall) registerBlock("park_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall POKE_LOOT_BALL = (LootBall) registerBlock("poke_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall PREMIER_LOOT_BALL = (LootBall) registerBlock("premier_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall QUICK_LOOT_BALL = (LootBall) registerBlock("quick_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall REPEAT_LOOT_BALL = (LootBall) registerBlock("repeat_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall ROSEATE_LOOT_BALL = (LootBall) registerBlock("roseate_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall SAFARI_LOOT_BALL = (LootBall) registerBlock("safari_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall SLATE_LOOT_BALL = (LootBall) registerBlock("slate_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall SPORT_LOOT_BALL = (LootBall) registerBlock("sport_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall TIMER_LOOT_BALL = (LootBall) registerBlock("timer_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall ULTRA_LOOT_BALL = (LootBall) registerBlock("ultra_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
-    public static final LootBall VERDANT_LOOT_BALL = (LootBall) registerBlock("verdant_loot_ball",new LootBall(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock AZURE_LOOT_BALL = (LootBallBlock) registerBlock("azure_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock BEAST_LOOT_BALL = (LootBallBlock) registerBlock("beast_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock CHERISH_LOOT_BALL = (LootBallBlock) registerBlock("cherish_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock CITRINE_LOOT_BALL = (LootBallBlock) registerBlock("citrine_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock DIVE_LOOT_BALL = (LootBallBlock) registerBlock("dive_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock DREAM_LOOT_BALL = (LootBallBlock) registerBlock("dream_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock DUSK_LOOT_BALL = (LootBallBlock) registerBlock("dusk_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock FAST_LOOT_BALL = (LootBallBlock) registerBlock("fast_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock FRIEND_LOOT_BALL = (LootBallBlock) registerBlock("friend_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock GREAT_LOOT_BALL = (LootBallBlock) registerBlock("great_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock HEAL_LOOT_BALL = (LootBallBlock) registerBlock("heal_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock HEAVY_LOOT_BALL = (LootBallBlock) registerBlock("heavy_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock LEVEL_LOOT_BALL = (LootBallBlock) registerBlock("level_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock LOVE_LOOT_BALL = (LootBallBlock) registerBlock("love_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock LURE_LOOT_BALL = (LootBallBlock) registerBlock("lure_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock LUXURY_LOOT_BALL = (LootBallBlock) registerBlock("luxury_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock MASTER_LOOT_BALL = (LootBallBlock) registerBlock("master_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock MOON_LOOT_BALL = (LootBallBlock) registerBlock("moon_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock NEST_LOOT_BALL = (LootBallBlock) registerBlock("nest_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock NET_LOOT_BALL = (LootBallBlock) registerBlock("net_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock PARK_LOOT_BALL = (LootBallBlock) registerBlock("park_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock POKE_LOOT_BALL = (LootBallBlock) registerBlock("poke_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock PREMIER_LOOT_BALL = (LootBallBlock) registerBlock("premier_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock QUICK_LOOT_BALL = (LootBallBlock) registerBlock("quick_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock REPEAT_LOOT_BALL = (LootBallBlock) registerBlock("repeat_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock ROSEATE_LOOT_BALL = (LootBallBlock) registerBlock("roseate_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock SAFARI_LOOT_BALL = (LootBallBlock) registerBlock("safari_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock SLATE_LOOT_BALL = (LootBallBlock) registerBlock("slate_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock SPORT_LOOT_BALL = (LootBallBlock) registerBlock("sport_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock TIMER_LOOT_BALL = (LootBallBlock) registerBlock("timer_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock ULTRA_LOOT_BALL = (LootBallBlock) registerBlock("ultra_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
+    public static final LootBallBlock VERDANT_LOOT_BALL = (LootBallBlock) registerBlock("verdant_loot_ball",new LootBallBlock(FabricBlockSettings.copyOf(Blocks.BEDROCK)));
 
     private static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);
-        return Registry.register(Registries.BLOCK, new Identifier(Lootballs.MOD_ID, name), block);
+        return Registry.register(Registries.BLOCK, new Identifier(LootBalls.MOD_ID, name), block);
     }
 
     private static Item registerBlockItem(String name, Block block) {
-        return Registry.register(Registries.ITEM, new Identifier(Lootballs.MOD_ID, name),
+        return Registry.register(Registries.ITEM, new Identifier(LootBalls.MOD_ID, name),
                 new BlockItem(block, new FabricItemSettings()));
     }
 
     public static void registerModBlocks() {
-        Lootballs.LOGGER.info("Registering blocks for " + Lootballs.MOD_ID);
+        LootBalls.LOGGER.info("Registering blocks for " + LootBalls.MOD_ID);
     }
 }

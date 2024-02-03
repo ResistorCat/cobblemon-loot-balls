@@ -23,7 +23,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
-import ripio.lootballs.config.LootBallsConfigs;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -42,13 +41,15 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     @Nullable
     protected Identifier lootTableId;
     protected long lootTableSeed;
-    protected int uses = LootBallsConfigs.USES_PER_LOOTBALL;
+    protected int uses = 1;
     protected Set<UUID> openers = new HashSet<>();
     protected boolean infinite = false;
     protected float multiplier = 1.0F;
-    public LootBallEntity(BlockPos pos, BlockState state, float multiplier) {
+
+    public LootBallEntity(BlockPos pos, BlockState state, float multiplier, int uses) {
         super(LOOT_BALL_ENTITY, pos, state);
         this.multiplier = multiplier;
+        this.uses = uses;
     }
 
     public LootBallEntity(BlockPos pos, BlockState state) {
@@ -193,5 +194,12 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
 
     public ItemStack copyStack(int slot) {
         return this.items.get(slot).copy();
+    }
+
+    public void newLoot(Identifier lootTableId, long lootTableSeed) {
+        this.setStack(0, ItemStack.EMPTY);
+        this.lootTableId = lootTableId;
+        this.lootTableSeed = lootTableSeed;
+        this.checkLootInteraction(null);
     }
 }

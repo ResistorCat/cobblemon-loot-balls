@@ -6,14 +6,14 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import ripio.lootballs.block.entity.LootBallEntity;
-import ripio.lootballs.Lootballs;
+import ripio.lootballs.LootBalls;
 
 import static ripio.lootballs.block.LootBallsBlocks.*;
 
 public class LootBallsBlockEntities {
     public static final BlockEntityType<LootBallEntity> LOOT_BALL_ENTITY = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
-            new Identifier(Lootballs.MOD_ID, "loot_ball_entity"),
+            new Identifier(LootBalls.MOD_ID, "loot_ball_entity"),
             FabricBlockEntityTypeBuilder.create(
                     LootBallEntity::new,
                     AZURE_LOOT_BALL,
@@ -52,6 +52,6 @@ public class LootBallsBlockEntities {
     );
 
     public static void registerBlockEntities() {
-        Lootballs.LOGGER.info("Registering block entities for " + Lootballs.MOD_ID);
+        LootBalls.LOGGER.info("Registering block entities for " + LootBalls.MOD_ID);
     }
 }

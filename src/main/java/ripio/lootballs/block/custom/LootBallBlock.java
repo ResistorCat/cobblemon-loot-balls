@@ -9,6 +9,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -20,6 +21,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -30,18 +32,21 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import ripio.lootballs.LootBalls;
 import ripio.lootballs.block.entity.LootBallEntity;
-import ripio.lootballs.config.LootBallsConfigs;
 import ripio.lootballs.sound.LootBallsSoundEvents;
 import ripio.lootballs.stat.LootBallsStats;
 
-public class LootBall extends HorizontalFacingBlock implements Waterloggable, BlockEntityProvider {
+import static ripio.lootballs.LootBalls.lootBallsResource;
+
+public class LootBallBlock extends HorizontalFacingBlock implements Waterloggable, BlockEntityProvider {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final BooleanProperty HIDDEN = BooleanProperty.of("hidden");
     public static final BooleanProperty WAXED = BooleanProperty.of("waxed");
     private float multiplier = 1.0F;
+    private int uses = 1;
 
-    public LootBall(Settings settings) {
+    public LootBallBlock(Settings settings) {
         super(settings.nonOpaque().noBlockBreakParticles());
         setDefaultState(getDefaultState()
                 .with(Properties.HORIZONTAL_FACING, Direction.NORTH)
@@ -54,8 +59,9 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
     public BlockState getGenerationState(Random random, BlockPos pos, StructureWorldAccess world) {
         // 20% Chance to be hidden on generation
         this.multiplier = 1.0F;
-        boolean hidden = (random.nextFloat() <= LootBallsConfigs.HIDDEN_CHANCE);
-        if (hidden) this.multiplier = LootBallsConfigs.HIDDEN_MULTIPLIER;
+        this.uses = LootBalls.CONFIG.naturalLootBallUses();
+        boolean hidden = (random.nextFloat() <= LootBalls.CONFIG.hiddenChance());
+        if (hidden) this.multiplier = LootBalls.CONFIG.hiddenMultiplier();
         return this.getDefaultState()
                 .with(Properties.HORIZONTAL_FACING, Direction.fromHorizontal(random.nextInt(3)))
                 .with(HIDDEN, hidden)
@@ -94,7 +100,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
     public BlockEntity createBlockEntity(
             BlockPos pos,
             BlockState state) {
-        return new LootBallEntity(pos, state, this.multiplier);
+        return new LootBallEntity(pos, state, this.multiplier, this.uses);
     }
 
     @Override
@@ -168,8 +174,8 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                     world.setBlockState(pos, state.with(HIDDEN, !state.get(HIDDEN)));
                     player.sendMessage(Text.translatable("block.lootballs.loot_ball.visibility").formatted(Formatting.AQUA), true);
                     player.playSound(SoundEvents.ENTITY_BAT_TAKEOFF, SoundCategory.BLOCKS, 0.5F, 1.0F);
-                } else if (handItem.isOf(Items.HONEYCOMB)) {
-                    // Toggle sparks (wax with honeycomb)
+                } else if (handItem.isOf(Items.HONEYCOMB) && state.get(HIDDEN)) {
+                    // Toggle sparks (wax/un-wax with honeycomb if hidden)
                     boolean isWaxed = state.get(WAXED);
                     SoundEvent waxSound = isWaxed ? SoundEvents.ITEM_AXE_WAX_OFF : SoundEvents.ITEM_HONEYCOMB_WAX_ON;
                     MutableText waxMsg = Text.literal("")
@@ -198,13 +204,12 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
 
             } else if (!player.isCreative() && !player.isSpectator()) {
                 /// Survival, adventure and hardcore mode
-
                 if (!blockEntity.getStack(0).isEmpty()) {
                     // Loot ball has items to retrieve
 
                     // STEP 1: Check if player already opened this loot (multiplayer).
                     boolean alreadyOpen = false;
-                    if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
+                    if (LootBalls.CONFIG.perPlayerLootBalls()) {
                         if (blockEntity.isOpener(player.getUuid())) {
                             alreadyOpen = true;
                             player.sendMessage( Text.translatable("block.lootballs.loot_ball.already_open").formatted(Formatting.RED).formatted(Formatting.BOLD) );
@@ -222,6 +227,7 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                             lootMsg = lootMsg
                                     .append( Text.translatable("block.lootballs.loot_ball.bonus_loot").formatted(Formatting.LIGHT_PURPLE) )
                                     .append( Text.literal(" [").formatted(Formatting.WHITE) )
+                                    .append( Text.literal("x").formatted(Formatting.GREEN).formatted(Formatting.BOLD))
                                     .append( Text.literal(String.valueOf(multiplier).formatted(Formatting.GREEN)).formatted(Formatting.BOLD) )
                                     .append( Text.literal("]: ").formatted(Formatting.WHITE) );
                         }
@@ -234,9 +240,9 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
                         player.getInventory().offerOrDrop(lootStack);
                         player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);
 
-                        if (LootBallsConfigs.PER_PLAYER_LOOTBALLS) {
+                        if (LootBalls.CONFIG.perPlayerLootBalls()) {
                             blockEntity.addOpener(player.getUuid());
-                            if (!LootBallsConfigs.IGNORE_PER_PLAYER_LOOTBALLS_USES) {
+                            if (!LootBalls.CONFIG.ignorePerPlayerLootBallUses()) {
                                 blockEntity.setUses(blockEntity.getUses() - 1);
                             }
                         } else {
@@ -245,6 +251,9 @@ public class LootBall extends HorizontalFacingBlock implements Waterloggable, Bl
 
                         if (blockEntity.getUses() <= 0) {
                             world.removeBlock(pos, false);
+                        } else {
+                            Identifier lootTableId = lootBallsResource(Registries.BLOCK.getId(this).getPath().replace("_loot_ball", "_loot_table"));
+                            blockEntity.newLoot(lootTableId, world.random.nextLong());
                         }
 
                         player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.BLOCKS, 0.7F, 1.0F);
