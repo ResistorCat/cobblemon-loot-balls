@@ -9,7 +9,7 @@ public class LootBallsLootBallGeneration {
     public static void generateLootBalls() {
         BiomeModifications.addFeature(
                 BiomeSelectors.all(),
-                GenerationStep.Feature.VEGETAL_DECORATION,
+                GenerationStep.Feature.TOP_LAYER_MODIFICATION,
                 LootBallsPlacedFeatures.LOOT_BALL_PLACED_KEY
         );
     }
