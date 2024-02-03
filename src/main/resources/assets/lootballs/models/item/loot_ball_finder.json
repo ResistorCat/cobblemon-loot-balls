@@ -140,6 +140,9 @@
 			}
 		}
 	],
+	"overrides": [
+		{"predicate": {"cooldown": 0.01}, "model": "lootballs:item/loot_ball_finder_off"}
+	],
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [0, 180, 0],
@@ -158,10 +161,10 @@
 			"translation": [2.25, 9, 0.25]
 		},
 		"ground": {
-			"rotation": [90, 0, 180]
+			"translation": [4, 6, -1]
 		},
 		"gui": {
-			"rotation": [0, 180, 0],
+			"rotation": [161.9, -27.31, 171.49],
 			"translation": [-6, 6, 0],
 			"scale": [1.5, 1.5, 1]
 		},
@@ -195,14 +198,6 @@
 					"children": [8, 9]
 				}
 			]
-		}
-	],
-	"overrides": [
-		{
-			"predicate": {
-				"cooldown": 0.01
-			},
-			"model": "lootballs:item/loot_ball_finder_off"
 		}
 	]
 }
