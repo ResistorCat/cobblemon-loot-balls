@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class LootBallsUtils {
-    public static int COMMON_WEIGHT = 90;
-    public static int UNCOMMON_WEIGHT = 32;
+    public static int COMMON_WEIGHT = 80;
+    public static int UNCOMMON_WEIGHT = 30;
     public static int RARE_WEIGHT = 12;
     public static int ULTRA_RARE_WEIGHT = 1;
     public static int TOTAL_WEIGHT = COMMON_WEIGHT + UNCOMMON_WEIGHT + RARE_WEIGHT + ULTRA_RARE_WEIGHT;
@@ -36,7 +36,6 @@ public class LootBallsUtils {
 
     };
     private static final Identifier[] RARE_LOOTS = {
-            new Identifier(LootBalls.MOD_ID, "luxury_loot_ball"),
             new Identifier(LootBalls.MOD_ID, "ultra_loot_ball"),
 
     };
@@ -45,6 +44,7 @@ public class LootBallsUtils {
 
     };
     private static final Identifier[] POKE_LOOT_EQUIVALENTS = {
+            new Identifier(LootBalls.MOD_ID, "poke_loot_ball"),
             new Identifier(LootBalls.MOD_ID, "azure_loot_ball"),
             new Identifier(LootBalls.MOD_ID, "citrine_loot_ball"),
             new Identifier(LootBalls.MOD_ID, "premier_loot_ball"),
@@ -106,12 +106,6 @@ public class LootBallsUtils {
         String path = blockId.getPath();
         List<TagKey<Block>> tagsList = new ArrayList<>();
 
-        // Luxury
-        if (Objects.equals(path, "luxury_loot_ball")) {
-            tagsList.add(LootBallsBlockTagProvider.LUXURY_LOOT_BALL_BASE_BLOCKS);
-            return tagsList.toArray(new TagKey[0]);
-        }
-
         tagsList.add(LootBallsBlockTagProvider.LOOT_BALLS_BASE_BLOCKS);
         return tagsList.toArray(new TagKey[0]);
     }
@@ -123,10 +117,6 @@ public class LootBallsUtils {
         // Dive LootBall
         if (Objects.equals(path, "dive_loot_ball")) {
             return List.of(0, 40);
-        }
-        // Luxury LootBall
-        if (Objects.equals(path, "luxury_loot_ball")) {
-            return List.of(world.getBottomY(), 40);
         }
 
         return List.of(world.getBottomY(), world.getTopY());
