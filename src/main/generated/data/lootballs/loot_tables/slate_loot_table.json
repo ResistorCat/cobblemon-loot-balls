@@ -14,7 +14,7 @@
             }
           ],
           "name": "cobblemon:slate_ball",
-          "weight": 30
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -23,14 +23,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 4.0,
-                "min": 2.0
+                "max": 8.0,
+                "min": 4.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "cobblemon:oran_berry",
-          "weight": 30
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -39,14 +39,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "cobblemon:potion",
-          "weight": 10
+          "weight": 7
         },
         {
           "type": "minecraft:item",
@@ -55,14 +55,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
+                "max": 3.0,
                 "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
           "name": "cobblemon:ether",
-          "weight": 10
+          "weight": 6
         },
         {
           "type": "minecraft:item",
@@ -78,22 +78,6 @@
             }
           ],
           "name": "minecraft:golden_carrot",
-          "weight": 10
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 8.0,
-                "min": 4.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "minecraft:emerald",
           "weight": 5
         },
         {
@@ -103,8 +87,8 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
+                "max": 4.0,
+                "min": 2.0
               },
               "function": "minecraft:set_count"
             }
@@ -117,11 +101,39 @@
           "functions": [
             {
               "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 16.0,
+                "min": 10.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:emerald",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
               "count": 1.0,
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:leftovers"
+          "name": "cobblemon:leftovers",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "cobblemon:rare_candy"
         }
       ],
       "rolls": 1.0

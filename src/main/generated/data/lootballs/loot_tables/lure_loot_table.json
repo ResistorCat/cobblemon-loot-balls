@@ -13,8 +13,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:safari_ball",
-          "weight": 7
+          "name": "cobblemon:lure_ball",
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -29,8 +29,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:sun_stone",
-          "weight": 7
+          "name": "cobblemon:ice_stone",
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -45,8 +45,8 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:silk_scarf",
-          "weight": 7
+          "name": "cobblemon:never_melt_ice",
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -55,13 +55,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 16.0,
-                "min": 6.0
+                "max": 2.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:razz_berry",
+          "name": "cobblemon:deep_sea_scale",
           "weight": 6
         },
         {
@@ -71,13 +71,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 16.0,
-                "min": 6.0
+                "max": 2.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:nanab_berry",
+          "name": "cobblemon:deep_sea_tooth",
           "weight": 6
         },
         {
@@ -87,14 +87,14 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 16.0,
-                "min": 6.0
+                "max": 2.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:pinap_berry",
-          "weight": 6
+          "name": "cobblemon:power_anklet",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -105,19 +105,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:lucky_egg",
-          "weight": 3
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": 3.0,
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "cobblemon:exp_candy_xs",
+          "name": "cobblemon:dragon_scale",
           "weight": 2
         },
         {
@@ -129,7 +117,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "cobblemon:rare_candy"
+          "name": "cobblemon:exp_candy_m"
         }
       ],
       "rolls": 1.0
