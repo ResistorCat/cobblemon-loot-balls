@@ -1,19 +1,30 @@
 # Changes
-- Added config file in ```config``` folder with 6 new configurations.
-  - From now, you can configure loot balls to allow loot for multiple players.
-  - You can tweak the max amount of loot balls generated per chunk.
+- Updated all existing loot tables. You can check the new loots in the [lootball docs](https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/docs/Lootballs.md).
+- Added **loot ball fishing, archaeology and drop sources**.
+- Added 5 new loot balls to natural generation:
+  - **Lure**: Obtainable only by **fishing** in cold oceans.
+  - **Heal**: **Naturally generated** in biomes with **villages**.
+  - **Dive**: **Naturally generated** in oceans at the bottom and by fishing in deep ocean biomes.
+  - **Repeat**: Obtainable only by brushing suspicious sand in desert pyramids and wells.
+  - **Luxury**: **Naturally generated** in geodes and obtainable by breaking Budding Amethyst.
+- Added config file in ```config``` folder with 10 new configurations.
+  - From now, you can configure loot balls to allow loot for multiple players (works similar to Lootr mod).
+  - You can tweak the **max amount of loot balls generated per chunk**.
+  - You can disable loot ball fishing, archaeology, natural generation and other sources.
   - Check the details in the [config docs](https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/docs/Configs.md)
 - Added new NBT tags to lootballs for mapmakers:
   - ```Uses```: Indicates the uses remaining in a loot ball. When it reaches 0, the lootball is destroyed.
   - ```Infinite```: Boolean byte that indicates if loot ball has infinite uses.
-  - ```Multiplier```: Boolean byte that indicates if loot ball will grant double loot.
+  - `Multiplier`: Float that indicates the bonus loot multiplier for a loot ball. (defaults to 2.0 for natural hidden loot balls)
 - Tweaked loot ball generation and particles.
   - By default, 3 attempts will be made per chunk (configurable) to spawn loot balls.
   - Hidden loot balls will now generate 3 sparks instead of 1.
 - Added **Loot Ball Finder** item.
   - Currently, it only helps to find **hidden** loots in a `64x64x64` area centered in the player.
   - It can be obtained by crafting. See the [features docs](https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/docs/Features.md)
-- Updated language files.
+  - This is WIP. I appreciate your feedback on discord!
+- Updated language files and text formatting.
+- Removed unused `doLootBallFishing` gamerule and replaced with a new config.
 
 ## Fixes
 - **Critical fix** to NBT saving/loading for loot balls.
