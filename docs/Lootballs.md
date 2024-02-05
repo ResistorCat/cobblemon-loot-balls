@@ -10,6 +10,9 @@
 
 ## Usage
 ### Survival / Adventure
+In survival/adventure mode, you can get the loot from a loot ball by right-clicking it.
+Some loot balls are invisible and will grant bonus loot. It's hard to find hidden loots, but you can craft a special
+item for that: The [Loot Ball Finder](https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/docs/Features.md#loot-ball-finder-wip).
 ### Creative (Mapmaking)
 In creative mode, you can obtain loot balls in the `Loot Balls` creative tab.
 
