@@ -122,6 +122,7 @@ public class LootBallsUtils {
         return List.of(world.getBottomY(), world.getTopY());
     }
 
+    @Nullable
     private static Identifier filteredLootBall(Identifier[] identifiers, RegistryEntry<Biome> biome, Random random) {
         ArrayList<Identifier> filteredLoots = new ArrayList<>();
 
@@ -133,7 +134,8 @@ public class LootBallsUtils {
         }
 
         // If poke loot present, choose one of all equivalents
-        for (Identifier identifier : filteredLoots) {
+        ArrayList<Identifier> copyLoots = new ArrayList<>(filteredLoots);
+        for (Identifier identifier : copyLoots) {
             if (Objects.equals(identifier.getPath(), "poke_loot_ball")) {
                 filteredLoots.remove(identifier);
                 filteredLoots.add(POKE_LOOT_EQUIVALENTS[random.nextInt(POKE_LOOT_EQUIVALENTS.length)]);
@@ -141,6 +143,7 @@ public class LootBallsUtils {
             }
         }
 
+        if (filteredLoots.isEmpty()) return null;
         return filteredLoots.get(random.nextInt(filteredLoots.size()));
     }
 }
