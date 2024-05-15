@@ -1,2 +1,2 @@
-## Fixes
-- **Fixed**: Game crash when loading modded dimensions.
+# Changes
+- Updated cobblemon version to 1.5.
