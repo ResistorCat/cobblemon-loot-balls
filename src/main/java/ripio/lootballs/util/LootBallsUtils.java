@@ -1,6 +1,5 @@
 package ripio.lootballs.util;
 
-import com.cobblemon.mod.common.api.tags.CobblemonBiomeTags;
 import net.minecraft.block.Block;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.BiomeTags;
@@ -85,7 +84,7 @@ public class LootBallsUtils {
 
         // Safari LootBall
         if (Objects.equals(path, "safari_loot_ball")) {
-            return CobblemonBiomeTags.IS_SAVANNA;
+            return LootBallsBiomeTags.HAS_LOOTBALL_SAFARI;
         }
         // Heal LootBall
         if (Objects.equals(path, "heal_loot_ball")) {
@@ -99,7 +98,7 @@ public class LootBallsUtils {
         if (biome.isIn(BiomeTags.IS_END)) return BiomeTags.IS_END;
         if (biome.isIn(BiomeTags.IS_NETHER)) return BiomeTags.IS_NETHER;
 
-        return CobblemonBiomeTags.IS_OVERWORLD;
+        return LootBallsBiomeTags.IS_OVERWORLD;
     }
 
     public static TagKey<Block>[] getLootBallBlockTags(Identifier blockId) {

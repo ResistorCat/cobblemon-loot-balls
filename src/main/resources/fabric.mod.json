@@ -38,7 +38,7 @@
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*",
-		"cobblemon": "1.4.x",
+		"cobblemon": "1.5.x",
 		"owo-lib": "0.11.x"
 	},
 	"suggests": {
