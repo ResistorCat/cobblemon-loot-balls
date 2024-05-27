@@ -70,8 +70,12 @@ public class LootBallsLanguageProvider extends FabricLanguageProvider {
             translationBuilder.add("text.config.lootballs-config.section.multiplayer", "Multiplayer");
             translationBuilder.add("text.config.lootballs-config.section.gameplay", "Gameplay\n(Requires restart)");
 
-            translationBuilder.add("text.config.lootballs-config.option.maxLootBallsPerChunk", "Maximum Loot Balls generated per chunk");
+            translationBuilder.add("text.config.lootballs-config.option.maxLootBallsPerChunk", "Maximum Loot Balls that are attempted to be generated per chunk");
             translationBuilder.add("text.config.lootballs-config.option.maxLootBallsPerChunk.tooltip", "Positive integer");
+            translationBuilder.add("text.config.lootballs-config.option.minLootBallsPerChunk", "Minimum Loot Balls that are attempted to be generated per chunk");
+            translationBuilder.add("text.config.lootballs-config.option.minLootBallsPerChunk.tooltip", "Positive integer");
+            translationBuilder.add("text.config.lootballs-config.option.generationChance", "Chance of generating a Loot Ball");
+            translationBuilder.add("text.config.lootballs-config.option.generationChance.tooltip", "float in range [0, 1]");
             translationBuilder.add("text.config.lootballs-config.option.hiddenMultiplier", "Hidden Loot Balls bonus multiplier");
             translationBuilder.add("text.config.lootballs-config.option.hiddenChance", "Chance of generating hidden Loot Balls");
             translationBuilder.add("text.config.lootballs-config.option.hiddenChance.tooltip", "float in range [0, 1]");

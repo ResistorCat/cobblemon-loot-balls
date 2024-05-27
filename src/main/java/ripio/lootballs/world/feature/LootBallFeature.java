@@ -39,7 +39,7 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
             // Check if Gamerule is false
             if (!world.getServer().getGameRules().getBoolean(LootBallsGamerules.GENERATE_LOOT_BALLS)) return false;
             // Decide lootball attempts for this chunk
-            int placements = random.nextBetween(0, LootBalls.CONFIG.maxLootBallsPerChunk());
+            int placements = random.nextBetween(LootBalls.CONFIG.minLootBallsPerChunk(), LootBalls.CONFIG.maxLootBallsPerChunk());
             // Place loot balls
             for (int i = 0; i < placements; i++) {
                 placeLootBall(world, origin, random, config);
@@ -51,7 +51,7 @@ public class LootBallFeature extends Feature<LootBallFeatureConfig> {
     }
     private void placeLootBall(StructureWorldAccess world, BlockPos origin, Random random, LootBallFeatureConfig config) {
         // Check rarity chance
-        if (random.nextFloat() >= config.chance()) return;
+        if (random.nextFloat() > LootBalls.CONFIG.generationChance()) return;
 
         // Get a random loot ball and loot table
         Identifier blockId = LootBallsUtils.randomLootBall(random, world.getBiome(origin));

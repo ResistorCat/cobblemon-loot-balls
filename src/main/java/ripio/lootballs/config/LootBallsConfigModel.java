@@ -6,7 +6,11 @@ import io.wispforest.owo.config.annotation.*;
 @Config(name = "lootballs-config", wrapperName = "LootBallsConfig")
 public class LootBallsConfigModel {
     @SectionHeader("generation")
+
     public int maxLootBallsPerChunk = 3;
+    public int minLootBallsPerChunk = 0;
+    @RangeConstraint(min = 0F,max = 1F)
+    public float generationChance = 0.08F;
     public float hiddenMultiplier = 2.0F;
     @RangeConstraint(min = 0F,max = 1F)
     public float hiddenChance = 0.2F;
