@@ -11,6 +11,8 @@ In the config folder inside your minecraft instance, there is a `lootballs-confi
 
 > Note: Some configurations only apply when generating new chunks.
 - `maxLootBallsPerChunk`: (_Int_) Defaults to `3`. It limits how many loot balls can generate in a chunk. `0` will disable loot ball generation in all worlds. (It's better to use the gamerule for that)
+- `maxLootBallsPerChunk`: (_Int_) Defaults to `0`. It limits the minimum amount of loot ball generation attempts in a chunk. It must be lower or equal to `maxLootBallsPerChunk`.
+- `generationChance`: (_Float_) Defaults to `0.08`. It determines the chance for a loot ball to be generated.
 - `perPlayerLootBalls`: (_Bool_) Defaults to `false`. It determines if Loot Balls
   can be obtained by every player in the server (and it won't disappear when used).
 - `naturalLootBallUses`: (_Int_) Defaults to `1`. It determines the number of uses each naturally generated loot ball will have.

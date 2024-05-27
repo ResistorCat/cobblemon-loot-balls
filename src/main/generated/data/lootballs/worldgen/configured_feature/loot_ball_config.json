@@ -1,6 +1,6 @@
 {
   "type": "lootballs:loot_ball_feature",
   "config": {
-    "chance": 0.1
+    "chance": 1.0
   }
 }
