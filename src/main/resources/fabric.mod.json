@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "lootballs",
 	"version": "${version}",
-	"name": "lootballs",
+	"name": "Cobblemon Loot Balls",
 	"description": "A cobblemon side-mod that adds pokéballs with loot from the original games to cobblemon.",
 	"authors": [
 		"Ripio"
