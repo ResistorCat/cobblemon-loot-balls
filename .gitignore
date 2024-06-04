@@ -41,5 +41,7 @@ replay_*.log
 *.jfr
 /remappedSrc/
 /src/main/generated/.cache/
+
+# Custom
 /scripts/fabric_server/
 /scripts/python/
