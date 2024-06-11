@@ -47,7 +47,7 @@ public interface ImplementedInventory extends Inventory {
     @Override
     default boolean isEmpty() {
         for (int i = 0; i < size(); i++) {
-            ItemStack stack = getStack(i);
+            ItemStack stack = getItems().get(i);
             if (!stack.isEmpty()) {
                 return false;
             }

@@ -67,20 +67,24 @@ public class LootBallsLanguageProvider extends FabricLanguageProvider {
             translationBuilder.add("text.config.lootballs-config.title", "Loot Balls configurations");
 
             translationBuilder.add("text.config.lootballs-config.section.generation", "Loot Balls generation");
-            translationBuilder.add("text.config.lootballs-config.section.multiplayer", "Multiplayer");
-            translationBuilder.add("text.config.lootballs-config.section.gameplay", "Gameplay\n(Requires restart)");
-
-            translationBuilder.add("text.config.lootballs-config.option.maxLootBallsPerChunk", "Maximum Loot Balls generated per chunk");
+            translationBuilder.add("text.config.lootballs-config.section.gameplay", "Gameplay");
+            // Generation configs
+            translationBuilder.add("text.config.lootballs-config.option.minLootBallsPerChunk", "Minimum Loot Balls that are attempted to be generated per chunk");
+            translationBuilder.add("text.config.lootballs-config.option.minLootBallsPerChunk.tooltip", "Positive integer");
+            translationBuilder.add("text.config.lootballs-config.option.maxLootBallsPerChunk", "Maximum Loot Balls that are attempted to be generated per chunk");
             translationBuilder.add("text.config.lootballs-config.option.maxLootBallsPerChunk.tooltip", "Positive integer");
+            translationBuilder.add("text.config.lootballs-config.option.generationChance", "Chance of generating a Loot Ball");
+            translationBuilder.add("text.config.lootballs-config.option.generationChance.tooltip", "float in range [0, 1]");
             translationBuilder.add("text.config.lootballs-config.option.hiddenMultiplier", "Hidden Loot Balls bonus multiplier");
             translationBuilder.add("text.config.lootballs-config.option.hiddenChance", "Chance of generating hidden Loot Balls");
             translationBuilder.add("text.config.lootballs-config.option.hiddenChance.tooltip", "float in range [0, 1]");
             translationBuilder.add("text.config.lootballs-config.option.naturalLootBallUses", "Number of uses of naturally generated Loot Balls");
             translationBuilder.add("text.config.lootballs-config.option.naturalLootBallUses.tooltip", "Value must be >= 1");
-            translationBuilder.add("text.config.lootballs-config.option.perPlayerLootBalls", "Loot Balls can be obtained by every player in the server");
-            translationBuilder.add("text.config.lootballs-config.option.perPlayerLootBalls.tooltip", "(Loot Balls won't disappear on use)");
-            translationBuilder.add("text.config.lootballs-config.option.ignorePerPlayerLootBallUses", "Ignore number of uses of Loot Balls in Multiplayer");
-            translationBuilder.add("text.config.lootballs-config.option.ignorePerPlayerLootBallUses.tooltip", "perPlayerLootBalls must be true for this to work!");
+            // Gameplay configs
+            translationBuilder.add("text.config.lootballs-config.option.ignoreLootBallUses", "Ignore the remaining uses of Loot Balls.");
+            translationBuilder.add("text.config.lootballs-config.option.ignoreLootBallUses.tooltip", "This affects single and multiplayer worlds!");
+            translationBuilder.add("text.config.lootballs-config.option.randomizeAfterUse", "Randomize the loot for the next player that opens a loot ball");
+            translationBuilder.add("text.config.lootballs-config.option.randomizeAfterUse.tooltip", "This only affects if the loot ball has a loot table");
             translationBuilder.add("text.config.lootballs-config.option.doLootBallArchaeology", "Enable loot balls from archaeology loot tables");
             translationBuilder.add("text.config.lootballs-config.option.doLootBallFishing", "Enable loot balls from fishing loot tables");
             translationBuilder.add("text.config.lootballs-config.option.doLootBallDrops", "Enable loot balls from block drops");
