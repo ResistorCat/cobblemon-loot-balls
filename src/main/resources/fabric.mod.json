@@ -45,7 +45,12 @@
 	},
 	"custom": {
 		"modmenu": {
-			"update_checker": true
+			"update_checker": true,
+			"links": {
+				"modmenu.modrinth": "https://modrinth.com/mod/cobblemon-loot-balls",
+				"modmenu.discord": "https://discord.com/channels/934267676354834442/1188967307142234328",
+				"modmenu.wiki": "https://github.com/ResistorCat/cobblemon-loot-balls/blob/main/README.md"
+			}
 		}
 	}
 }
