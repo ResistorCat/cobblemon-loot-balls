@@ -204,61 +204,58 @@ public class LootBallBlock extends HorizontalFacingBlock implements Waterloggabl
 
             } else if (!player.isCreative() && !player.isSpectator()) {
                 /// Survival, adventure and hardcore mode
-                if (!blockEntity.getStack(0).isEmpty()) {
+
+                // STEP 1: Check if player already opened this loot.
+                boolean alreadyOpen = false;
+                if (blockEntity.isOpener(player.getUuid())) {
+                    alreadyOpen = true;
+                    player.sendMessage( Text.translatable("block.lootballs.loot_ball.already_open").formatted(Formatting.RED).formatted(Formatting.BOLD) );
+                } else {
+                    blockEntity.checkLootInteraction(player);
+                }
+
+                if (!alreadyOpen && !blockEntity.isEmpty()) {
                     // Loot ball has items to retrieve
 
-                    // STEP 1: Check if player already opened this loot (multiplayer).
-                    boolean alreadyOpen = false;
-                    if (LootBalls.CONFIG.perPlayerLootBalls()) {
-                        if (blockEntity.isOpener(player.getUuid())) {
-                            alreadyOpen = true;
-                            player.sendMessage( Text.translatable("block.lootballs.loot_ball.already_open").formatted(Formatting.RED).formatted(Formatting.BOLD) );
-                        }
-                    }
-
                     // STEP 2: Loot
-                    if (!alreadyOpen) {
-                        float multiplier = blockEntity.getMultiplier();
-                        ItemStack lootStack = blockEntity.copyStack(0);
-                        MutableText lootMsg = Text.literal("");
+                    float multiplier = blockEntity.getMultiplier();
+                    ItemStack lootStack = blockEntity.copyStack(0);
+                    MutableText lootMsg = Text.literal("");
 
-                        if (multiplier > 1.0F) {
-                            lootStack = lootStack.copyWithCount((int) (lootStack.getCount() * multiplier));
-                            lootMsg = lootMsg
-                                    .append( Text.translatable("block.lootballs.loot_ball.bonus_loot").formatted(Formatting.LIGHT_PURPLE) )
-                                    .append( Text.literal(" [").formatted(Formatting.WHITE) )
-                                    .append( Text.literal("x").formatted(Formatting.GREEN).formatted(Formatting.BOLD))
-                                    .append( Text.literal(String.valueOf(multiplier).formatted(Formatting.GREEN)).formatted(Formatting.BOLD) )
-                                    .append( Text.literal("]: ").formatted(Formatting.WHITE) );
-                        }
+                    if (multiplier > 1.0F) {
+                        lootStack = lootStack.copyWithCount((int) (lootStack.getCount() * multiplier));
                         lootMsg = lootMsg
-                                .append( Text.translatable("block.lootballs.loot_ball.open").formatted(Formatting.AQUA) )
-                                .append( Text.literal(String.valueOf(lootStack.getCount())).formatted(Formatting.YELLOW) )
-                                .append( Text.literal(" ") )
-                                .append( Text.literal(lootStack.getName().getString()).formatted(Formatting.GREEN).formatted(Formatting.BOLD) );
-
-                        player.getInventory().offerOrDrop(lootStack);
-                        player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);
-
-                        if (LootBalls.CONFIG.perPlayerLootBalls()) {
-                            blockEntity.addOpener(player.getUuid());
-                            if (!LootBalls.CONFIG.ignorePerPlayerLootBallUses()) {
-                                blockEntity.setUses(blockEntity.getUses() - 1);
-                            }
-                        } else {
-                            blockEntity.setUses(blockEntity.getUses() - 1);
-                        }
-
-                        if (blockEntity.getUses() <= 0) {
-                            world.removeBlock(pos, false);
-                        } else {
-                            Identifier lootTableId = lootBallsResource(Registries.BLOCK.getId(this).getPath().replace("_loot_ball", "_loot_table"));
-                            blockEntity.newLoot(lootTableId, world.random.nextLong());
-                        }
-
-                        player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.BLOCKS, 0.7F, 1.0F);
-                        player.sendMessage(lootMsg, true);
+                                .append( Text.translatable("block.lootballs.loot_ball.bonus_loot").formatted(Formatting.LIGHT_PURPLE) )
+                                .append( Text.literal(" [").formatted(Formatting.WHITE) )
+                                .append( Text.literal("x").formatted(Formatting.GREEN).formatted(Formatting.BOLD))
+                                .append( Text.literal(String.valueOf(multiplier).formatted(Formatting.GREEN)).formatted(Formatting.BOLD) )
+                                .append( Text.literal("]: ").formatted(Formatting.WHITE) );
                     }
+                    lootMsg = lootMsg
+                            .append( Text.translatable("block.lootballs.loot_ball.open").formatted(Formatting.AQUA) )
+                            .append( Text.literal(String.valueOf(lootStack.getCount())).formatted(Formatting.YELLOW) )
+                            .append( Text.literal(" ") )
+                            .append( Text.literal(lootStack.getName().getString()).formatted(Formatting.GREEN).formatted(Formatting.BOLD) );
+
+                    player.getInventory().offerOrDrop(lootStack);
+                    player.incrementStat(LootBallsStats.OPEN_LOOT_BALL_STAT_ID);
+
+                    // Tag block as opened by player
+                    blockEntity.addOpener(player.getUuid());
+                    if (!LootBalls.CONFIG.ignoreLootBallUses()) {
+                        blockEntity.setUses(blockEntity.getUses() - 1);
+                    }
+
+                    if (blockEntity.getUses() <= 0) {
+                        world.removeBlock(pos, false);
+                    } else {
+                        if (LootBalls.CONFIG.randomizeAfterUse()) {
+                            blockEntity.regenerateLoot(world.random.nextLong());
+                        }
+                    }
+
+                    player.playSound(LootBallsSoundEvents.LOOT_BALL_OPEN_SOUND_EVENT, SoundCategory.BLOCKS, 0.7F, 1.0F);
+                    player.sendMessage(lootMsg, true);
                 }
             }
 
