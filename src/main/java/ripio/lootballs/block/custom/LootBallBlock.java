@@ -9,7 +9,6 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -21,7 +20,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -36,8 +34,6 @@ import ripio.lootballs.LootBalls;
 import ripio.lootballs.block.entity.LootBallEntity;
 import ripio.lootballs.sound.LootBallsSoundEvents;
 import ripio.lootballs.stat.LootBallsStats;
-
-import static ripio.lootballs.LootBalls.lootBallsResource;
 
 public class LootBallBlock extends HorizontalFacingBlock implements Waterloggable, BlockEntityProvider {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
