@@ -13,6 +13,8 @@ import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -45,6 +47,8 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     protected Set<UUID> openers = new HashSet<>();
     protected boolean infinite = false;
     protected float multiplier = 1.0F;
+
+    protected boolean renewLoot = true;
 
     public LootBallEntity(BlockPos pos, BlockState state, float multiplier, int uses) {
         super(LOOT_BALL_ENTITY, pos, state);
@@ -93,22 +97,22 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         if (this.openers.isEmpty()) {
             return;
         }
-        StringBuilder saveString = new StringBuilder();
-        for (UUID opener:
-             openers) {
-            if (saveString.isEmpty()) {
-                saveString = new StringBuilder(opener.toString());
-            } else {
-                saveString.append(",").append(opener.toString());
-            }
+        NbtList nbtList = new NbtList();
+        for (UUID opener : openers) {
+            nbtList.add(NbtString.of(opener.toString()));
         }
-        nbt.putString(OPENERS_KEY, saveString.toString());
+        nbt.put(OPENERS_KEY, nbtList);
     }
     protected void deserializeOpeners(NbtCompound nbt) {
-        if (nbt.contains(OPENERS_KEY, NbtElement.STRING_TYPE)) {
+        if (nbt.contains(OPENERS_KEY, NbtElement.LIST_TYPE)) {
+            NbtList nbtList = nbt.getList(OPENERS_KEY, NbtElement.STRING_TYPE);
+            for (NbtElement strUUID : nbtList) {
+                this.addOpener(UUID.fromString(strUUID.asString()));
+            }
+        } else if (nbt.contains(OPENERS_KEY, NbtElement.STRING_TYPE)) {
+            // COMPATIBILITY
             String[] uuidStrings = nbt.getString(OPENERS_KEY).split(",");
-            for (String strUUID:
-                 uuidStrings) {
+            for (String strUUID : uuidStrings) {
                 this.addOpener(UUID.fromString(strUUID));
             }
         }
@@ -125,17 +129,20 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
     public float getMultiplier() { return this.multiplier; }
     @Override
     public void checkLootInteraction(@Nullable PlayerEntity player) {
-        if (this.lootTableId != null && this.world != null && this.world.getServer() != null) {
+        if (this.lootTableId != null && this.world != null && this.world.getServer() != null && this.renewLoot && player != null) {
+            // Mark flag
+            this.renewLoot = false;
+            if (!this.isEmpty()) return;
+            if (this.isOpener(player.getUuid())) return;
+            // Supply loot to the loot ball
             LootTable lootTable = this.world.getServer().getLootManager().getLootTable(this.lootTableId);
             if (player instanceof ServerPlayerEntity) {
                 Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger((ServerPlayerEntity)player, this.lootTableId);
             }
-            this.lootTableId = null;
             LootContextParameterSet.Builder builder = new LootContextParameterSet.Builder((ServerWorld)this.world).add(LootContextParameters.ORIGIN, Vec3d.ofCenter(this.pos));
-            if (player != null) {
-                builder.luck(player.getLuck()).add(LootContextParameters.THIS_ENTITY, player);
-            }
+            builder.luck(player.getLuck()).add(LootContextParameters.THIS_ENTITY, player);
             lootTable.supplyInventory(this, builder.build(LootContextTypes.CHEST), this.lootTableSeed);
+
             this.markDirty();
         }
     }
@@ -196,10 +203,11 @@ public class LootBallEntity extends BlockEntity implements ImplementedInventory,
         return this.items.get(slot).copy();
     }
 
-    public void newLoot(Identifier lootTableId, long lootTableSeed) {
-        this.setStack(0, ItemStack.EMPTY);
-        this.lootTableId = lootTableId;
-        this.lootTableSeed = lootTableSeed;
-        this.checkLootInteraction(null);
+    public void regenerateLoot(long lootTableSeed) {
+        if (this.lootTableId != null) {
+            this.clear();
+            this.renewLoot = true;
+            this.lootTableSeed = lootTableSeed;
+        }
     }
 }

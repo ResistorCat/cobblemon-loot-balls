@@ -25,7 +25,7 @@ honeycomb in your hand on a hidden loot ball to "wax" it.
 - Custom NBT:
   - `LootTable` and `LootTableSeed`: Used to automatically generate loot from loot tables.
   - `Uses`: Indicates the remaining uses of a loot ball. If it reaches 0, the ball is destroyed.
-  - `Openers`: Stores the uuids of players that already opened the loot ball.
+  - `Openers`: NbtList with the uuids of players that already opened the loot ball.
   - `Infinite`: Boolean byte that indicates if the loot ball has infinite uses.
   - `Multiplier`: Float that indicates the bonus loot multiplier for a loot ball. (defaults to 2.0 for natural hidden loot balls)
   - `Items`: Stores the item of the loot ball.
