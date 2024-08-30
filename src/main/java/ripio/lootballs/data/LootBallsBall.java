@@ -51,8 +51,11 @@ public class LootBallsBall {
 
 class BallSource {
     public String type;
+    @Nullable
     public String biome;
+    @Nullable
     public String height;
+    @Nullable
     public int weight;
 }
 
