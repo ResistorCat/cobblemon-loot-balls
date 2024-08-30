@@ -1,0 +1,11 @@
+{
+  "name": "lure",
+  "rarity": "uncommon",
+  "table": "lootballs:ball/lure",
+  "sources": [
+    {
+      "type": "fishing",
+      "biome": "lootballs:ball/lure"
+    }
+  ]
+}

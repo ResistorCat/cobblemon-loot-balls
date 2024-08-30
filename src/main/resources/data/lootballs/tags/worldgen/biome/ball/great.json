@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#lootballs:is_overworld",
+    "#c:is_nether",
+    "#c:is_end"
+  ]
+}

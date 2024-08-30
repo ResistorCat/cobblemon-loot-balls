@@ -1,0 +1,13 @@
+{
+  "name": "master",
+  "rarity": "ultra_rare",
+  "table": "lootballs:ball/master",
+  "sources": [
+    {
+      "type": "generation",
+      "biome": "lootballs:ball/master",
+      "height": ":",
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "safari",
+  "rarity": "common",
+  "table": "lootballs:ball/safari",
+  "sources": [
+    {
+      "type": "generation",
+      "biome": "lootballs:ball/safari",
+      "height": ":",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "heal",
+  "rarity": "uncommon",
+  "table": "lootballs:ball/heal",
+  "sources": [
+    {
+      "type": "generation",
+      "biome": "lootballs:ball/heal",
+      "height": "50:",
+      "weight": 3
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "great",
+  "rarity": "uncommon",
+  "table": "lootballs:ball/great",
+  "sources": [
+    {
+      "type": "generation",
+      "biome": "lootballs:ball/great",
+      "height": ":",
+      "weight": 1
+    },
+    {
+      "type": "fishing",
+      "biome": "lootballs:ball/great"
+    }
+  ]
+}

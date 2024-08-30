@@ -1,0 +1,17 @@
+{
+  "name": "ultra",
+  "rarity": "rare",
+  "table": "lootballs:ball/ultra",
+  "sources": [
+    {
+      "type": "generation",
+      "biome": "lootballs:ball/ultra",
+      "height": ":",
+      "weight": 1
+    },
+    {
+      "type": "fishing",
+      "biome": "lootballs:ball/ultra"
+    }
+  ]
+}

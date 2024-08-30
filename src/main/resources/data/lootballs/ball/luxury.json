@@ -1,0 +1,10 @@
+{
+  "name": "luxury",
+  "rarity": "rare",
+  "table": "lootballs:ball/luxury",
+  "sources": [
+    {
+      "type": "block"
+    }
+  ]
+}

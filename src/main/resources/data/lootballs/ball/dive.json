@@ -1,0 +1,18 @@
+{
+  "name": "dive",
+  "rarity": "uncommon",
+  "table": "lootballs:ball/dive",
+  "sources": [
+    {
+      "type": "generation",
+      "biome": "lootballs:ball/dive",
+      "height": "0:55",
+      "weight": 5
+    },
+    {
+      "type": "fishing",
+      "biome": "lootballs:ball/dive"
+    }
+  ],
+  "variants": []
+}
