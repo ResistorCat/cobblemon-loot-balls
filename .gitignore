@@ -45,3 +45,4 @@ replay_*.log
 # Custom
 /scripts/fabric_server/
 /scripts/python/
+/docs/assets/modicon.pdn
