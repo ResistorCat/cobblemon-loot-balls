@@ -20,7 +20,7 @@
           "ripio.lootballs.LootBalls"
 		],
 		"client": [
-			"ripio.lootballs.LootballsClient"
+			"ripio.lootballs.LootBallsClient"
 		],
 		"fabric-datagen": [
 			"ripio.lootballs.LootBallsDataGenerator"
