@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "lootballs:loot_ball",
     "lootballs:azure_loot_ball",
     "lootballs:beast_loot_ball",
     "lootballs:cherish_loot_ball",
