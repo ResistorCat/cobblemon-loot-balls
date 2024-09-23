@@ -1,7 +1,8 @@
 {
-  "name": "lure",
+  "name": "Lure",
   "rarity": "uncommon",
   "table": "lootballs:ball/lure",
+  "texture": "cobblemon:textures/item/poke_balls/models/lure_ball.png",
   "sources": [
     {
       "type": "fishing",

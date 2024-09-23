@@ -1,7 +1,8 @@
 {
-  "name": "luxury",
+  "name": "Luxury",
   "rarity": "rare",
   "table": "lootballs:ball/luxury",
+  "texture": "cobblemon:textures/item/poke_balls/models/luxury_ball.png",
   "sources": [
     {
       "type": "block"

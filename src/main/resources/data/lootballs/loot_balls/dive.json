@@ -1,7 +1,8 @@
 {
-  "name": "dive",
+  "name": "Dive",
   "rarity": "uncommon",
   "table": "lootballs:ball/dive",
+  "texture": "cobblemon:textures/item/poke_balls/models/dive_ball.png",
   "sources": [
     {
       "type": "generation",

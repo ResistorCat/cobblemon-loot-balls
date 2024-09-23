@@ -1,7 +1,8 @@
 {
-  "name": "safari",
+  "name": "Safari",
   "rarity": "common",
   "table": "lootballs:ball/safari",
+  "texture": "cobblemon:textures/item/poke_balls/models/safari_ball.png",
   "sources": [
     {
       "type": "generation",

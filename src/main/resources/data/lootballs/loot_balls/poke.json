@@ -1,0 +1,56 @@
+{
+  "name": "Poke",
+  "rarity": "common",
+  "table": "lootballs:ball/poke",
+  "texture": "cobblemon:textures/item/poke_balls/models/poke_ball.png",
+  "sources": [
+    {
+      "type": "generation",
+      "biome": "lootballs:ball/poke",
+      "height": ":",
+      "weight": 1
+    },
+    {
+      "type": "fishing",
+      "biome": "lootballs:ball/poke"
+    },
+    {
+      "type": "archaeology"
+    },
+    {
+      "type": "chest"
+    }
+  ],
+  "variants": [
+    {
+      "name": "azure",
+      "table": "lootballs:ball/azure",
+      "texture": "cobblemon:textures/item/poke_balls/models/azure_ball.png"
+    },
+    {
+      "name": "citrine",
+      "table": "lootballs:ball/citrine",
+      "texture": "cobblemon:textures/item/poke_balls/models/citrine_ball.png"
+    },
+    {
+      "name": "premier",
+      "table": "lootballs:ball/premier",
+      "texture": "cobblemon:textures/item/poke_balls/models/premier_ball.png"
+    },
+    {
+      "name": "roseate",
+      "table": "lootballs:ball/roseate",
+      "texture": "cobblemon:textures/item/poke_balls/models/roseate_ball.png"
+    },
+    {
+      "name": "slate",
+      "table": "lootballs:ball/slate",
+      "texture": "cobblemon:textures/item/poke_balls/models/slate_ball.png"
+    },
+    {
+      "name": "verdant",
+      "table": "lootballs:ball/verdant",
+      "texture": "cobblemon:textures/item/poke_balls/models/verdant_ball.png"
+    }
+  ]
+}

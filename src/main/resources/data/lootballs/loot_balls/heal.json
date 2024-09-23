@@ -1,7 +1,8 @@
 {
-  "name": "heal",
+  "name": "Heal",
   "rarity": "uncommon",
   "table": "lootballs:ball/heal",
+  "texture": "cobblemon:textures/item/poke_balls/models/heal_ball.png",
   "sources": [
     {
       "type": "generation",

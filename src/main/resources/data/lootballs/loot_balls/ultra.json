@@ -1,7 +1,8 @@
 {
-  "name": "ultra",
+  "name": "Ultra",
   "rarity": "rare",
   "table": "lootballs:ball/ultra",
+  "texture": "cobblemon:textures/item/poke_balls/models/ultra_ball.png",
   "sources": [
     {
       "type": "generation",

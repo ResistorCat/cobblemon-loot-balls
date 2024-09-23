@@ -1,7 +1,8 @@
 {
-  "name": "master",
+  "name": "Master",
   "rarity": "ultra_rare",
   "table": "lootballs:ball/master",
+  "texture": "cobblemon:textures/item/poke_balls/models/master_ball.png",
   "sources": [
     {
       "type": "generation",
