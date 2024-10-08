@@ -14,10 +14,10 @@ public class LootBallsDataGenerator implements DataGeneratorEntrypoint {
     public void onInitializeDataGenerator(FabricDataGenerator generator){
         FabricDataGenerator.Pack pack = generator.createPack();
 
-        pack.addProvider(LootBallsLootTableProvider::new);
+        //pack.addProvider(LootBallsLootTableProvider::new);
         pack.addProvider(LootBallsWorldGenerator::new);
-        pack.addProvider(LootBallsBlockTagProvider::new);
-        pack.addProvider(LootBallsLanguageProvider::new);
+        //pack.addProvider(LootBallsBlockTagProvider::new);
+        //pack.addProvider(LootBallsLanguageProvider::new);
     }
 
     @Override
