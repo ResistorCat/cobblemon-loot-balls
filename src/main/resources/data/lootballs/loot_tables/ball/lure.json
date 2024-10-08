@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "cobblemon:exp_candy",
+          "name": "cobblemon:rare_candy",
           "weight": 1
         },
         {
@@ -39,7 +39,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "cobbblemon:icy_rock",
+          "name": "cobblemon:icy_rock",
           "weight": 6
         },
         {
